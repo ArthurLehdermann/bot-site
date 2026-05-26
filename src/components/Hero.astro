@@ -14,9 +14,14 @@ const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20sa
   <div class="relative z-10 max-w-6xl mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
     <!-- Left: copy -->
     <div>
-      <div class="section-tag mb-6">
+      <div class="section-tag mb-4">
         <span style="width:6px;height:6px;border-radius:50%;background:#06b6d4;display:inline-block;"></span>
         Inteligência artificial para operações reais
+      </div>
+
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 0.9375rem; color: #64748b; margin-bottom: 1.25rem; min-height: 1.5em; display: flex; align-items: center; gap: 0.4rem;">
+        <span style="width:5px;height:5px;border-radius:50%;background:#6366f1;display:inline-block;flex-shrink:0;"></span>
+        <span id="tw-text"></span><span id="tw-cursor" style="display:inline-block;width:1.5px;height:0.9em;background:#6366f1;margin-left:1px;vertical-align:middle;"></span>
       </div>
 
       <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.875rem, 3.25vw, 2.75rem); line-height: 1.15; letter-spacing: -0.025em; color: #f1f5f9; margin-bottom: 1.5rem;">
@@ -172,4 +177,37 @@ const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20sa
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
+  @keyframes twBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  #tw-cursor { animation: twBlink 1s step-end infinite; }
 </style>
+
+<script>
+  const phrases = [
+    'Para oficinas e auto centers',
+    'Para cursos e mentorias',
+    'Para clínicas e consultórios',
+    'Para imobiliárias e incorporadoras',
+    'Para assistência técnica',
+    'Para academias e estúdios',
+    'Para escolas e treinamentos',
+  ];
+  let i = 0, j = 0, deleting = false;
+  const el = document.getElementById('tw-text');
+  if (el) {
+    function tick() {
+      const phrase = phrases[i];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ++j);
+        if (j === phrase.length) { deleting = true; return setTimeout(tick, 2200); }
+      } else {
+        el.textContent = phrase.slice(0, --j);
+        if (j === 0) { deleting = false; i = (i + 1) % phrases.length; }
+      }
+      setTimeout(tick, deleting ? 28 : 58);
+    }
+    tick();
+  }
+</script>
