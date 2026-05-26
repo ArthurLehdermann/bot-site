@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: "DM Sans", sans-serif;
-  --font-display: "Syne", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
   --color-bg-base: #060810;
   --color-bg-surface: #0D1117;
   --color-bg-card: rgba(255, 255, 255, 0.03);
@@ -58,7 +58,7 @@ body {
   padding: 0.875rem 1.75rem;
   background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
   color: #fff;
-  font-family: "Syne", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 700;
   font-size: 0.9375rem;
   border-radius: 0.5rem;
@@ -79,7 +79,7 @@ body {
   padding: 0.875rem 1.75rem;
   background: transparent;
   color: #f1f5f9;
-  font-family: "Syne", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 600;
   font-size: 0.9375rem;
   border-radius: 0.5rem;
