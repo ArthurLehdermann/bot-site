@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+
+const sections = [
+  {
+    title: "1. Quem somos",
+    content: `A **BigWorks** é responsável pelo serviço BOT BigWorks, plataforma de atendimento inteligente via WhatsApp. Para dúvidas sobre privacidade, entre em contato pelo e-mail **lgpd@bigworks.com.br**.`,
+  },
+  {
+    title: "2. Dados que coletamos",
+    content: `Coletamos as seguintes informações:\n\n• **Dados de contato:** nome, empresa e telefone fornecidos voluntariamente ao solicitar demonstração ou proposta.\n• **Dados de navegação:** endereço IP (anonimizado), páginas visitadas, tempo de sessão — coletados via Google Analytics somente com seu consentimento explícito.\n• **Cookies essenciais:** necessários para o funcionamento do site (preferência de consentimento).\n• **Cookies de análise:** Google Analytics (GA4), utilizados apenas após consentimento.`,
+  },
+  {
+    title: "3. Finalidade do tratamento",
+    content: `Utilizamos seus dados para:\n\n• Responder solicitações de demonstração e contato comercial.\n• Enviar informações sobre o serviço BOT BigWorks, quando solicitado.\n• Melhorar o site com base em métricas de uso anônimas.\n• Cumprir obrigações legais (LGPD, art. 7º).`,
+  },
+  {
+    title: "4. Base legal (LGPD)",
+    content: `O tratamento de dados pessoais neste site se baseia em:\n\n• **Consentimento** (art. 7º, I): para cookies de análise e comunicações de marketing.\n• **Legítimo interesse** (art. 7º, IX): para dados de contato utilizados no processo comercial.\n• **Cumprimento de obrigação legal** (art. 7º, II): quando exigido por lei.`,
+  },
+  {
+    title: "5. Compartilhamento de dados",
+    content: `Não vendemos seus dados pessoais. Compartilhamos apenas com:\n\n• **Google Analytics (Alphabet Inc.):** métricas de uso do site, somente com consentimento. Dados podem ser processados nos EUA com salvaguardas adequadas.\n• **Vercel Inc.:** hospedagem do site; processa logs de acesso conforme sua política de privacidade.\n• **Prestadores internos:** equipe de vendas da BigWorks para resposta a solicitações de contato.\n\nNão realizamos transferência internacional de dados além dos mencionados acima.`,
+  },
+  {
+    title: "6. Retenção de dados",
+    content: `• **Dados de contato:** mantidos enquanto houver interesse comercial legítimo ativo, ou até solicitação de exclusão.\n• **Logs de navegação (GA4):** retidos por 14 meses conforme configuração padrão do Google Analytics.\n• **Consentimento de cookies:** armazenado localmente no seu navegador (localStorage), sem prazo de expiração automático.`,
+  },
+  {
+    title: "7. Seus direitos (LGPD, art. 18)",
+    content: `Como titular de dados, você tem direito a:\n\n• **Confirmação e acesso** aos seus dados pessoais.\n• **Correção** de dados incompletos ou desatualizados.\n• **Anonimização, bloqueio ou eliminação** de dados desnecessários ou tratados em desconformidade.\n• **Portabilidade** dos dados, mediante requisição.\n• **Eliminação** dos dados tratados com base em consentimento.\n• **Revogação do consentimento** a qualquer momento, sem prejuízo da licitude do tratamento anterior.\n• **Informação** sobre compartilhamento de dados.\n\nPara exercer seus direitos, envie solicitação para **lgpd@bigworks.com.br**.`,
+  },
+  {
+    title: "8. Cookies",
+    content: `**Cookies essenciais:** necessários para salvar sua preferência de consentimento. Não podem ser desativados.\n\n**Cookies de análise (GA4):** utilizados para entender o comportamento de navegação no site. Ativados somente após consentimento explícito. Podem ser desativados a qualquer momento clicando em "Gerenciar cookies" no rodapé ou limpando o localStorage do navegador.`,
+  },
+  {
+    title: "9. Segurança",
+    content: `O site BOT BigWorks é servido exclusivamente via HTTPS (TLS). Dados de contato recebidos por formulário são transmitidos de forma criptografada. Adotamos medidas técnicas e organizacionais compatíveis com o estado da arte para proteção de dados pessoais.`,
+  },
+  {
+    title: "10. Contato e DPO",
+    content: `Para exercer direitos LGPD, solicitações de exclusão, dúvidas ou reclamações:\n\n**E-mail:** lgpd@bigworks.com.br\n\nVocê também pode registrar reclamações perante a **ANPD (Autoridade Nacional de Proteção de Dados)**: www.gov.br/anpd`,
+  },
+  {
+    title: "11. Alterações nesta política",
+    content: `Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo. Recomendamos a revisão periódica. O uso continuado do site após alterações implica aceitação da versão vigente.`,
+  },
+];
+---
+
+<Base
+  title="Política de Privacidade — BOT BigWorks"
+  description="Saiba como o BOT BigWorks coleta, usa e protege seus dados pessoais, em conformidade com a LGPD (Lei 13.709/2018)."
+>
+  <header style="background: rgba(6,8,16,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 0;">
+    <div class="max-w-6xl mx-auto px-5 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 no-underline" style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; color:#f1f5f9;">
+        <div style="width:2rem;height:2rem;border-radius:0.5rem;background:linear-gradient(135deg,#6366f1,#3b82f6);display:flex;align-items:center;justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.06L2 22l4.94-1.38A9.95 9.95 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </div>
+        BOT BigWorks
+      </a>
+      <a href="/" style="font-size:0.875rem; color:#64748b; text-decoration:none;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#64748b'">← Voltar ao site</a>
+    </div>
+  </header>
+
+  <main style="max-width:768px; margin:0 auto; padding:4rem 1.25rem 6rem;">
+    <div style="margin-bottom:3rem;">
+      <div class="section-tag" style="width:fit-content; margin-bottom:1rem;">LGPD — Lei 13.709/2018</div>
+      <h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:2rem; color:#f1f5f9; letter-spacing:-0.02em; margin-bottom:0.75rem;">Política de Privacidade</h1>
+      <p style="color:#475569; font-size:0.9rem;">Última atualização: maio de 2026</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:2.5rem;">
+      {sections.map((s) => (
+        <div>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">{s.title}</h2>
+          <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; white-space:pre-line;" set:html={s.content.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e2e8f0;">$1</strong>')} />
+        </div>
+      ))}
+    </div>
+  </main>
+
+  <footer style="border-top:1px solid rgba(255,255,255,0.06); padding:2rem 1.25rem; text-align:center;">
+    <p style="color:#334155; font-size:0.8125rem;">
+      © {new Date().getFullYear()} BOT BigWorks &nbsp;·&nbsp;
+      <a href="/termos" style="color:#475569; text-decoration:none;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#475569'">Termos de Uso</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:lgpd@bigworks.com.br" style="color:#475569; text-decoration:none;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#475569'">lgpd@bigworks.com.br</a>
+    </p>
+  </footer>
+</Base>
