@@ -1,0 +1,35 @@
+---
+const segments = [
+  { label: "Oficinas mecânicas", icon: "🔧" },
+  { label: "Auto centers", icon: "🚗" },
+  { label: "Mecânicas diesel", icon: "🚛" },
+  { label: "Estéticas automotivas", icon: "✨" },
+  { label: "Clínicas", icon: "🏥" },
+  { label: "Imobiliárias", icon: "🏠" },
+  { label: "Assistência técnica", icon: "🛠️" },
+  { label: "Prestadores de serviço", icon: "📋" },
+];
+---
+
+<section class="py-24 relative overflow-hidden">
+  <div class="orb w-72 h-72 opacity-10" style="background: radial-gradient(circle, #8b5cf6, transparent); top: 10%; right: 5%;"></div>
+
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-12">
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Segmentos</div>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.875rem, 4vw, 2.75rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15; max-width: 640px; margin: 0 auto;">
+        Ideal para empresas com
+        <span class="gradient-text"> atendimento operacional.</span>
+      </h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      {segments.map((s) => (
+        <div class="flex items-center gap-2.5 px-5 py-3 rounded-full reveal" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #94a3b8; font-size: 0.9375rem;">
+          <span aria-hidden="true" style="font-size: 1.125rem;">{s.icon}</span>
+          <span>{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

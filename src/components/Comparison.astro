@@ -1,0 +1,82 @@
+---
+const against = [
+  "Fluxo engessado com menus",
+  "\"Digite 1\" para opções",
+  "Não entende contexto",
+  "Não integra a operação",
+  "Ignora áudio e imagem",
+];
+
+const pros = [
+  "Entende linguagem natural",
+  "Interpreta áudio e imagem",
+  "Integra com sistemas reais",
+  "Executa ações operacionais",
+  "Mantém contexto da conversa",
+];
+---
+
+<section class="py-24 relative" style="background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, rgba(59,130,246,0.03) 100%);">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Diferenciais</div>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.875rem, 4vw, 2.75rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+        Muito além de
+        <span class="gradient-text"> respostas automáticas.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <!-- Chatbot comum -->
+      <div class="glass-card p-6" style="border-color: rgba(239,68,68,0.15);">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #ef4444;">Chatbot comum</h3>
+        </div>
+        <ul class="flex flex-col gap-3">
+          {against.map((item) => (
+            <li class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(239,68,68,0.1);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              <span style="font-size: 0.9375rem; color: #64748b;">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- BOT BigWorks -->
+      <div class="glass-card p-6 plan-popular">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;" class="gradient-text">BOT BigWorks</h3>
+        </div>
+        <ul class="flex flex-col gap-3">
+          {pros.map((item) => (
+            <li class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(99,102,241,0.15);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="3" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg>
+              </div>
+              <span style="font-size: 0.9375rem; color: #e2e8f0;">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Security note -->
+    <div class="mt-10 max-w-3xl mx-auto glass-card p-6 flex items-start gap-4" style="border-color: rgba(245,158,11,0.15);">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9375rem; color: #f59e0b; margin-bottom: 0.375rem;">Segurança e controle</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.65;">A empresa mantém controle sobre aprovações e ações críticas. Agendamentos, alterações e processos sensíveis podem exigir confirmação humana antes da execução.</p>
+      </div>
+    </div>
+  </div>
+</section>

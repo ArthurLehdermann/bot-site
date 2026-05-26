@@ -1,0 +1,143 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'BOT BigWorks — Atendimento Inteligente no WhatsApp para Empresas',
+  description = 'Automatize atendimento, triagem, consultas e agendamentos no WhatsApp com IA integrada ao sistema da sua empresa. Texto, áudio, imagem e PDF em um único fluxo.',
+  ogImage = '/og-image.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://botbigworks.com.br/#org",
+      "name": "BOT BigWorks",
+      "url": "https://botbigworks.com.br",
+      "description": "Atendimento inteligente no WhatsApp integrado à operação da empresa.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+55-48-99838-6116",
+        "contactType": "sales",
+        "availableLanguage": "Portuguese"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://botbigworks.com.br/#website",
+      "url": "https://botbigworks.com.br",
+      "name": "BOT BigWorks",
+      "publisher": { "@id": "https://botbigworks.com.br/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "O sistema funciona com WhatsApp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. O sistema integra com WhatsApp via API, permitindo atendimento automático 24h por dia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Funciona com áudio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Áudios são transcritos, interpretados e resumidos automaticamente."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Funciona com imagens e PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. O sistema interpreta fotos, placas, documentos e arquivos PDF enviados pelo WhatsApp, dependendo do plano contratado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Preciso trocar de sistema?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Não necessariamente. O BOT BigWorks integra com APIs e sistemas existentes da empresa."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O atendimento pode ser híbrido?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. O sistema pode operar de forma totalmente automática, híbrida ou supervisionada pela equipe."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO primary -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="BOT BigWorks" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P950J8QNE0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P950J8QNE0');
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

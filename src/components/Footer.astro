@@ -1,0 +1,73 @@
+---
+const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20BOT%20BigWorks";
+const year = new Date().getFullYear();
+---
+
+<footer style="border-top: 1px solid rgba(255,255,255,0.06); background: rgba(6,8,16,0.8);">
+  <div class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <a href="/" class="flex items-center gap-2.5 no-underline mb-4" aria-label="BOT BigWorks">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #6366f1, #3b82f6);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.06L2 22l4.94-1.38A9.95 9.95 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" fill="white" fill-opacity="0.9"/>
+            </svg>
+          </div>
+          <span style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #f1f5f9;">BOT <span class="gradient-text">BigWorks</span></span>
+        </a>
+        <p style="color: #475569; font-size: 0.9rem; line-height: 1.7; max-width: 300px;">
+          Atendimento inteligente no WhatsApp, integrado à operação da sua empresa.
+        </p>
+        <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="btn-primary mt-5" style="padding: 0.625rem 1.25rem; font-size: 0.875rem; display: inline-flex;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.532 5.853L.044 23.956 6.303 22.5A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.387l-.36-.214-3.732.979 1-3.63-.234-.373A9.818 9.818 0 0112 2.182c5.427 0 9.818 4.391 9.818 9.818 0 5.428-4.391 9.818-9.818 9.818z"/></svg>
+          Falar conosco
+        </a>
+      </div>
+
+      <!-- Produto -->
+      <div>
+        <h4 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8125rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Produto</h4>
+        <ul class="flex flex-col gap-2.5">
+          {[
+            { label: "Funcionalidades", href: "#funcionalidades" },
+            { label: "Como funciona", href: "#como-funciona" },
+            { label: "Exemplos reais", href: "#exemplos" },
+            { label: "Planos", href: "#planos" },
+          ].map((link) => (
+            <li>
+              <a href={link.href} style="color: #64748b; font-size: 0.9rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#64748b'">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Segmentos -->
+      <div>
+        <h4 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8125rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Segmentos</h4>
+        <ul class="flex flex-col gap-2.5">
+          {[
+            "Oficinas mecânicas",
+            "Auto centers",
+            "Clínicas",
+            "Imobiliárias",
+            "Assistência técnica",
+          ].map((s) => (
+            <li style="color: #475569; font-size: 0.9rem;">{s}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-8" style="border-top: 1px solid rgba(255,255,255,0.05);">
+      <p style="color: #334155; font-size: 0.8125rem;">
+        © {year} BOT BigWorks. Todos os direitos reservados.
+      </p>
+      <p style="color: #334155; font-size: 0.8125rem;">
+        Atendimento inteligente para operações reais.
+      </p>
+    </div>
+  </div>
+</footer>

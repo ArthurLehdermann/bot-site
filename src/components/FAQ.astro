@@ -1,0 +1,81 @@
+---
+const faqs = [
+  {
+    q: "O sistema funciona com WhatsApp?",
+    a: "Sim. O BOT BigWorks integra com WhatsApp via API, permitindo atendimento automático 24 horas por dia, 7 dias por semana.",
+  },
+  {
+    q: "Precisa instalar algum aplicativo?",
+    a: "Não. O atendimento acontece diretamente no WhatsApp do cliente. Para a empresa, o gerenciamento é feito via painel web.",
+  },
+  {
+    q: "Funciona com mensagens de áudio?",
+    a: "Sim. Áudios são transcritos, interpretados e resumidos automaticamente pelo sistema. A equipe pode ler o conteúdo sem precisar ouvir.",
+  },
+  {
+    q: "Funciona com imagens e fotos?",
+    a: "Sim, dependendo do plano. O sistema interpreta fotos, identifica placas de veículos, lê documentos e analisa capturas de tela enviadas pelo cliente.",
+  },
+  {
+    q: "Funciona com PDF e anexos?",
+    a: "Sim. O sistema lê e interpreta arquivos PDF enviados via WhatsApp, extrai informações relevantes e pode encaminhar para o setor correspondente.",
+  },
+  {
+    q: "O sistema agenda automaticamente?",
+    a: "Pode criar solicitações de agendamento de forma autônoma. A empresa define se deseja uma confirmação humana antes da execução final.",
+  },
+  {
+    q: "Preciso trocar de sistema para usar?",
+    a: "Não necessariamente. O BOT BigWorks se integra com APIs e sistemas existentes da empresa — ERP, CRM ou qualquer sistema com acesso via API.",
+  },
+  {
+    q: "O atendimento pode ser híbrido?",
+    a: "Sim. O sistema pode operar de forma totalmente automática, híbrida (bot + humano) ou supervisionada. A empresa define o fluxo de acordo com sua operação.",
+  },
+  {
+    q: "A IA responde qualquer pergunta?",
+    a: "Não. O sistema é configurado para atuar dentro do contexto da empresa, evitando respostas fora do escopo operacional.",
+  },
+  {
+    q: "É possível personalizar os fluxos?",
+    a: "Sim. Fluxos, integrações, regras de negócio e comportamento da IA podem ser personalizados conforme a operação da sua empresa.",
+  },
+  {
+    q: "Funciona fora do horário comercial?",
+    a: "Sim. O sistema atende 24h por dia, inclusive fora do horário comercial, fins de semana e feriados.",
+  },
+  {
+    q: "O que inclui o setup/implantação?",
+    a: "Inclui integração com seus sistemas, personalização de fluxos, configuração de setores, treinamento da equipe e ajustes iniciais. O valor varia de R$300 a R$3.000 conforme a complexidade.",
+  },
+];
+---
+
+<section id="faq" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.3) 50%, transparent 100%);">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="text-center mb-12">
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">FAQ</div>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.875rem, 4vw, 2.75rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+        Perguntas
+        <span class="gradient-text"> frequentes.</span>
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      {faqs.map((faq, i) => (
+        <details class="glass-card group reveal" style="border-color: rgba(255,255,255,0.07);">
+          <summary class="flex items-center justify-between gap-4 px-5 py-4 select-none">
+            <span style="font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9375rem; color: #e2e8f0; line-height: 1.4;">{faq.q}</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </summary>
+          <div class="faq-body px-5 pb-4">
+            <p style="color: #94a3b8; font-size: 0.9375rem; line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.875rem;">{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

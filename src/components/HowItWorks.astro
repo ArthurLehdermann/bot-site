@@ -1,0 +1,69 @@
+---
+const steps = [
+  {
+    n: "1",
+    color: "#6366f1",
+    title: "Cliente envia mensagem",
+    text: "Texto, áudio, imagem ou arquivo. Qualquer formato que o cliente enviar no WhatsApp.",
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`,
+  },
+  {
+    n: "2",
+    color: "#3b82f6",
+    title: "IA interpreta contexto",
+    text: "Entende a intenção do cliente e extrai todas as informações relevantes da mensagem.",
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg>`,
+  },
+  {
+    n: "3",
+    color: "#06b6d4",
+    title: "Sistema executa ações",
+    text: "Consulta dados, cria rascunhos, encaminha para setores ou responde automaticamente.",
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  },
+  {
+    n: "4",
+    color: "#10b981",
+    title: "Equipe acompanha",
+    text: "Tudo centralizado, organizado e rastreável. Sua equipe monitora e intervém quando necessário.",
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`,
+  },
+];
+---
+
+<section id="como-funciona" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.4) 50%, transparent 100%);">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Como funciona</div>
+      <h2 style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.875rem, 4vw, 2.75rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+        Do atendimento à ação,
+        <span class="gradient-text"> em segundos.</span>
+      </h2>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto">
+      <!-- Vertical connector line -->
+      <div class="absolute left-6 top-12 bottom-12 w-px hidden md:block" style="background: linear-gradient(to bottom, #6366f1, #3b82f6, #06b6d4, #10b981); opacity: 0.3;"></div>
+
+      <div class="flex flex-col gap-8">
+        {steps.map((step, i) => (
+          <div class="flex gap-6 items-start reveal">
+            <!-- Step number circle -->
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10" style={`background: ${step.color}18; border: 2px solid ${step.color}40; color: ${step.color};`}>
+              <Fragment set:html={step.icon} />
+            </div>
+
+            <!-- Content -->
+            <div class="glass-card flex-1 p-5">
+              <div style={`font-size: 0.6875rem; font-weight: 700; color: ${step.color}; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;`}>
+                Passo {step.n}
+              </div>
+              <h3 style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.0625rem; color: #f1f5f9; margin-bottom: 0.5rem;">{step.title}</h3>
+              <p style="color: #64748b; font-size: 0.9375rem; line-height: 1.65;">{step.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
