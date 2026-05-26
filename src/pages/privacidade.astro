@@ -1,52 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const sections = [
-  {
-    title: "1. Quem somos",
-    content: `A **BigWorks** é responsável pelo serviço BOT BigWorks, plataforma de atendimento inteligente via WhatsApp. Para dúvidas sobre privacidade, entre em contato pelo e-mail **lgpd@bigworks.com.br**.`,
-  },
-  {
-    title: "2. Dados que coletamos",
-    content: `Coletamos as seguintes informações:\n\n• **Dados de contato:** nome, empresa e telefone fornecidos voluntariamente ao solicitar demonstração ou proposta.\n• **Dados de navegação:** endereço IP (anonimizado), páginas visitadas, tempo de sessão — coletados via Google Analytics somente com seu consentimento explícito.\n• **Cookies essenciais:** necessários para o funcionamento do site (preferência de consentimento).\n• **Cookies de análise:** Google Analytics (GA4), utilizados apenas após consentimento.`,
-  },
-  {
-    title: "3. Finalidade do tratamento",
-    content: `Utilizamos seus dados para:\n\n• Responder solicitações de demonstração e contato comercial.\n• Enviar informações sobre o serviço BOT BigWorks, quando solicitado.\n• Melhorar o site com base em métricas de uso anônimas.\n• Cumprir obrigações legais (LGPD, art. 7º).`,
-  },
-  {
-    title: "4. Base legal (LGPD)",
-    content: `O tratamento de dados pessoais neste site se baseia em:\n\n• **Consentimento** (art. 7º, I): para cookies de análise e comunicações de marketing.\n• **Legítimo interesse** (art. 7º, IX): para dados de contato utilizados no processo comercial.\n• **Cumprimento de obrigação legal** (art. 7º, II): quando exigido por lei.`,
-  },
-  {
-    title: "5. Compartilhamento de dados",
-    content: `Não vendemos seus dados pessoais. Compartilhamos apenas com:\n\n• **Google Analytics (Alphabet Inc.):** métricas de uso do site, somente com consentimento. Dados podem ser processados nos EUA com salvaguardas adequadas.\n• **Vercel Inc.:** hospedagem do site; processa logs de acesso conforme sua política de privacidade.\n• **Prestadores internos:** equipe de vendas da BigWorks para resposta a solicitações de contato.\n\nNão realizamos transferência internacional de dados além dos mencionados acima.`,
-  },
-  {
-    title: "6. Retenção de dados",
-    content: `• **Dados de contato:** mantidos enquanto houver interesse comercial legítimo ativo, ou até solicitação de exclusão.\n• **Logs de navegação (GA4):** retidos por 14 meses conforme configuração padrão do Google Analytics.\n• **Consentimento de cookies:** armazenado localmente no seu navegador (localStorage), sem prazo de expiração automático.`,
-  },
-  {
-    title: "7. Seus direitos (LGPD, art. 18)",
-    content: `Como titular de dados, você tem direito a:\n\n• **Confirmação e acesso** aos seus dados pessoais.\n• **Correção** de dados incompletos ou desatualizados.\n• **Anonimização, bloqueio ou eliminação** de dados desnecessários ou tratados em desconformidade.\n• **Portabilidade** dos dados, mediante requisição.\n• **Eliminação** dos dados tratados com base em consentimento.\n• **Revogação do consentimento** a qualquer momento, sem prejuízo da licitude do tratamento anterior.\n• **Informação** sobre compartilhamento de dados.\n\nPara exercer seus direitos, envie solicitação para **lgpd@bigworks.com.br**.`,
-  },
-  {
-    title: "8. Cookies",
-    content: `**Cookies essenciais:** necessários para salvar sua preferência de consentimento. Não podem ser desativados.\n\n**Cookies de análise (GA4):** utilizados para entender o comportamento de navegação no site. Ativados somente após consentimento explícito. Podem ser desativados a qualquer momento clicando em "Gerenciar cookies" no rodapé ou limpando o localStorage do navegador.`,
-  },
-  {
-    title: "9. Segurança",
-    content: `O site BOT BigWorks é servido exclusivamente via HTTPS (TLS). Dados de contato recebidos por formulário são transmitidos de forma criptografada. Adotamos medidas técnicas e organizacionais compatíveis com o estado da arte para proteção de dados pessoais.`,
-  },
-  {
-    title: "10. Contato e DPO",
-    content: `Para exercer direitos LGPD, solicitações de exclusão, dúvidas ou reclamações:\n\n**E-mail:** lgpd@bigworks.com.br\n\nVocê também pode registrar reclamações perante a **ANPD (Autoridade Nacional de Proteção de Dados)**: www.gov.br/anpd`,
-  },
-  {
-    title: "11. Alterações nesta política",
-    content: `Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo. Recomendamos a revisão periódica. O uso continuado do site após alterações implica aceitação da versão vigente.`,
-  },
-];
 ---
 
 <Base
@@ -72,13 +25,134 @@ const sections = [
       <p style="color:#475569; font-size:0.9rem;">Última atualização: maio de 2026</p>
     </div>
 
+    <!-- Scope note -->
+    <div style="background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.18); border-radius:0.75rem; padding:1.25rem 1.5rem; margin-bottom:2.5rem;">
+      <p style="font-size:0.875rem; color:#94a3b8; line-height:1.7;">
+        Esta política cobre dois escopos distintos:<br/>
+        <strong style="color:#e2e8f0;">1. Este site (bot.bigworks.com.br)</strong> — formulários de contato, analytics e cookies.<br/>
+        <strong style="color:#e2e8f0;">2. A plataforma BOT BigWorks</strong> — dados processados no contexto do serviço contratado (mensagens, áudios, imagens, PDFs, dados operacionais).
+      </p>
+    </div>
+
     <div style="display:flex; flex-direction:column; gap:2.5rem;">
-      {sections.map((s) => (
-        <div>
-          <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">{s.title}</h2>
-          <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; white-space:pre-line;" set:html={s.content.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e2e8f0;">$1</strong>')} />
+
+      <!-- SITE -->
+      <div>
+        <div class="section-tag" style="width:fit-content; margin-bottom:1.25rem; font-size:0.6875rem;">Escopo 1 — Este site</div>
+
+        <div style="display:flex; flex-direction:column; gap:2rem;">
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">1. Dados coletados pelo site</h2>
+            <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
+              <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem;">
+                <li><strong style="color:#e2e8f0;">Dados de contato voluntários:</strong> nome, empresa e telefone fornecidos ao solicitar demonstração ou proposta via WhatsApp ou formulário.</li>
+                <li><strong style="color:#e2e8f0;">Cookies essenciais:</strong> armazenam sua preferência de consentimento no localStorage do navegador. Não transmitidos a terceiros.</li>
+                <li><strong style="color:#e2e8f0;">Cookies de análise (GA4):</strong> somente com seu consentimento. Coletam páginas visitadas, tempo de sessão e origem do acesso — sem identificação pessoal direta.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">2. Finalidade e base legal</h2>
+            <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
+              <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem;">
+                <li><strong style="color:#e2e8f0;">Consentimento (art. 7º, I LGPD):</strong> cookies de análise e comunicações de marketing.</li>
+                <li><strong style="color:#e2e8f0;">Legítimo interesse (art. 7º, IX LGPD):</strong> dados de contato utilizados no processo comercial.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">3. Retenção — site</h2>
+            <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
+              <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem;">
+                <li><strong style="color:#e2e8f0;">Dados de contato:</strong> mantidos enquanto houver interesse comercial ativo, ou até solicitação de exclusão.</li>
+                <li><strong style="color:#e2e8f0;">Dados GA4:</strong> retidos por 14 meses conforme configuração padrão do Google.</li>
+                <li><strong style="color:#e2e8f0;">Preferência de cookies:</strong> salva localmente no navegador, sem prazo de expiração automático.</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
-      ))}
+      </div>
+
+      <!-- PLATAFORMA -->
+      <div>
+        <div class="section-tag" style="width:fit-content; margin-bottom:1.25rem; font-size:0.6875rem; background:rgba(6,182,212,0.1); border-color:rgba(6,182,212,0.2); color:#06b6d4;">Escopo 2 — Plataforma BOT BigWorks</div>
+
+        <div style="display:flex; flex-direction:column; gap:2rem;">
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">4. Dados tratados pela plataforma</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">No contexto da plataforma contratada, são tratados dados dos clientes finais da empresa contratante, incluindo:</p>
+            <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; color:#94a3b8; font-size:0.9375rem;">
+              <li>— Mensagens de texto enviadas via WhatsApp</li>
+              <li>— Áudios (transcritos e descartados após processamento)</li>
+              <li>— Imagens e fotos (processadas para OCR e identificação de conteúdo)</li>
+              <li>— Arquivos PDF e anexos</li>
+              <li>— Dados operacionais consultados nos sistemas integrados (OS, clientes, agendamentos)</li>
+              <li>— Logs de atendimento e histórico de conversas</li>
+            </ul>
+            <p style="color:#64748b; font-size:0.875rem; margin-top:0.875rem; line-height:1.65;">A empresa contratante é <strong style="color:#94a3b8;">controladora</strong> desses dados. A BigWorks atua como <strong style="color:#94a3b8;">operadora</strong>, nos termos do art. 39 da LGPD.</p>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">5. Retenção — plataforma</h2>
+            <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
+              <li><strong style="color:#e2e8f0;">Mensagens de texto:</strong> retidas conforme configuração da empresa contratante (padrão: 90 dias).</li>
+              <li><strong style="color:#e2e8f0;">Áudios:</strong> transcritos e descartados em até 24h após processamento.</li>
+              <li><strong style="color:#e2e8f0;">Imagens e PDFs:</strong> processados e descartados em até 24h. Não armazenados permanentemente.</li>
+              <li><strong style="color:#e2e8f0;">Logs de OCR:</strong> metadados retidos por até 30 dias para rastreabilidade.</li>
+              <li><strong style="color:#e2e8f0;">Logs operacionais:</strong> retidos por até 90 dias.</li>
+              <li><strong style="color:#e2e8f0;">Após cancelamento:</strong> dados excluídos em até 30 dias, salvo obrigação legal de retenção.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">6. Subprocessadores e transferência internacional</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">A plataforma utiliza os seguintes subprocessadores, que podem processar dados fora do Brasil:</p>
+            <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.625rem; color:#94a3b8; font-size:0.9375rem;">
+              <li><strong style="color:#e2e8f0;">Meta (WhatsApp Business API):</strong> roteamento de mensagens. Dados processados nos EUA conforme política da Meta.</li>
+              <li><strong style="color:#e2e8f0;">OpenAI:</strong> processamento de linguagem natural, transcrição de áudio e análise de imagem. Dados podem ser processados nos EUA. Não usados para treinamento de modelos conforme contrato de API.</li>
+              <li><strong style="color:#e2e8f0;">Vercel:</strong> hospedagem da infraestrutura. Processa dados de acesso conforme sua política.</li>
+              <li><strong style="color:#e2e8f0;">Outros provedores de cloud/IA:</strong> podem ser adicionados mediante atualização desta política.</li>
+            </ul>
+            <p style="color:#64748b; font-size:0.875rem; margin-top:0.875rem; line-height:1.65;">Adotamos medidas técnicas e organizacionais razoáveis para essa transferência internacional, compatíveis com a LGPD (art. 33).</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- COMPARTILHADO -->
+      <div>
+        <div style="display:flex; flex-direction:column; gap:2rem;">
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">7. Seus direitos (LGPD, art. 18)</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">Como titular de dados, você tem direito a: confirmação e acesso, correção, anonimização ou eliminação, portabilidade, revogação de consentimento e informação sobre compartilhamento.</p>
+            <p style="color:#94a3b8; font-size:0.9375rem;">Para exercer seus direitos, entre em contato pelo nosso canal LGPD: <a href="mailto:lgpd@bigworks.com.br" style="color:#6366f1; text-decoration:none;">lgpd@bigworks.com.br</a></p>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">8. Segurança</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">O site e a plataforma são servidos exclusivamente via HTTPS (TLS). Adotamos medidas técnicas e organizacionais razoáveis para proteção de dados pessoais, incluindo controle de acesso por função e criptografia em repouso para dados sensíveis.</p>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">9. Canal LGPD e contato</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">Para solicitações, dúvidas ou reclamações relacionadas à privacidade e à LGPD:<br/><strong style="color:#e2e8f0;">E-mail:</strong> <a href="mailto:lgpd@bigworks.com.br" style="color:#6366f1; text-decoration:none;">lgpd@bigworks.com.br</a></p>
+            <p style="color:#64748b; font-size:0.875rem; margin-top:0.75rem;">Você também pode registrar reclamações perante a <strong style="color:#94a3b8;">ANPD</strong>: gov.br/anpd</p>
+          </div>
+
+          <div>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">10. Alterações nesta política</h2>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo. O uso continuado do site ou da plataforma após alterações implica aceitação da versão vigente.</p>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </main>
 

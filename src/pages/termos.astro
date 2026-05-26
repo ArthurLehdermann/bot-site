@@ -1,68 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const sections = [
-  {
-    title: "1. Aceitação dos termos",
-    content: `Ao acessar e utilizar o site **bot.bigworks.com.br** e contratar os serviços do **BOT BigWorks**, você concorda com estes Termos de Uso. Caso não concorde, não utilize os serviços.`,
-  },
-  {
-    title: "2. Descrição do serviço",
-    content: `O BOT BigWorks é uma plataforma de atendimento automatizado via WhatsApp com inteligência artificial, que possibilita automação de atendimento, consultas operacionais, encaminhamento de setores e integração com sistemas empresariais (ERP, CRM, APIs).
-
-O serviço é fornecido mediante contratação de plano mensal, com setup inicial separado conforme escopo de implantação.`,
-  },
-  {
-    title: "3. Cadastro e conta",
-    content: `Para utilizar o serviço, a empresa contratante deve:\n\n• Fornecer informações verdadeiras e atualizadas no momento da contratação.\n• Manter a confidencialidade das credenciais de acesso ao painel.\n• Notificar imediatamente a BigWorks sobre uso não autorizado da conta.\n\nA BigWorks não se responsabiliza por danos decorrentes do descumprimento dessas obrigações.`,
-  },
-  {
-    title: "4. Uso aceitável",
-    content: `É **vedado** utilizar o BOT BigWorks para:\n\n• Envio de spam ou mensagens em massa não solicitadas.\n• Práticas que violem a Política de Uso Aceitável da Meta/WhatsApp.\n• Coleta de dados pessoais de terceiros sem consentimento.\n• Atividades ilegais, fraudulentas ou que violem direitos de terceiros.\n• Reverter engenharia, copiar ou redistribuir a plataforma.\n\nO descumprimento pode resultar em suspensão imediata do serviço.`,
-  },
-  {
-    title: "5. Responsabilidades do contratante",
-    content: `O contratante é responsável por:\n\n• O conteúdo das respostas configuradas no sistema.\n• Obter consentimento adequado dos seus clientes finais para uso de IA no atendimento.\n• Cumprir a LGPD em relação aos dados dos seus próprios clientes tratados pelo sistema.\n• Manter atualizado o número de WhatsApp vinculado ao serviço.\n• Cumprir as políticas de uso da API do WhatsApp Business.`,
-  },
-  {
-    title: "6. Planos, pagamento e cancelamento",
-    content: `**Cobrança:** mensal, antecipada, via método de pagamento cadastrado.\n\n**Reajuste:** os valores dos planos podem ser reajustados mediante aviso prévio de 30 dias.\n\n**Cancelamento:** pode ser solicitado a qualquer momento. O acesso é mantido até o fim do período pago. Não há reembolso proporcional de períodos já cobrados.\n\n**Setup:** cobrado separadamente, conforme proposta. Não reembolsável após início da implantação.`,
-  },
-  {
-    title: "7. Disponibilidade e SLA",
-    content: `O BOT BigWorks é fornecido "como está". Buscamos disponibilidade contínua, mas não garantimos SLA formal nos planos Starter e Smart. Planos Enterprise podem negociar SLA contratual específico.
-
-Manutenções programadas serão comunicadas com antecedência mínima de 24 horas.`,
-  },
-  {
-    title: "8. Propriedade intelectual",
-    content: `Todos os direitos sobre a plataforma BOT BigWorks, incluindo software, interface, marca e documentação, são de propriedade exclusiva da BigWorks.
-
-A contratação não transfere qualquer direito de propriedade intelectual ao contratante. É vedada a reprodução, adaptação ou distribuição sem autorização expressa.`,
-  },
-  {
-    title: "9. Limitação de responsabilidade",
-    content: `A BigWorks não se responsabiliza por:\n\n• Danos indiretos, lucros cessantes ou perda de dados do contratante.\n• Interrupções causadas por terceiros (Meta/WhatsApp, provedores de IA, infraestrutura de cloud).\n• Respostas geradas pela IA que contenham imprecisões, sendo responsabilidade do contratante a revisão dos fluxos configurados.\n• Uso indevido do serviço pelo contratante ou seus clientes.\n\nA responsabilidade total da BigWorks fica limitada ao valor pago nos últimos 3 meses de serviço.`,
-  },
-  {
-    title: "10. Privacidade e LGPD",
-    content: `O tratamento de dados pessoais no contexto da contratação é regido pela nossa **Política de Privacidade** (disponível em bot.bigworks.com.br/privacidade).
-
-Na relação com os dados dos clientes finais do contratante, a BigWorks atua como **operadora** e o contratante como **controlador**, nos termos da LGPD. Um Acordo de Processamento de Dados (DPA) pode ser solicitado para planos Pro e Enterprise.`,
-  },
-  {
-    title: "11. Alterações nos termos",
-    content: `A BigWorks pode alterar estes Termos a qualquer momento, com aviso por e-mail ou no painel com antecedência mínima de 15 dias para alterações materiais. O uso continuado após a vigência das alterações implica aceitação.`,
-  },
-  {
-    title: "12. Legislação aplicável e foro",
-    content: `Estes Termos são regidos pela legislação brasileira. Fica eleito o foro da Comarca de Florianópolis/SC para dirimir quaisquer controvérsias, com renúncia a qualquer outro, por mais privilegiado que seja.`,
-  },
-  {
-    title: "13. Contato",
-    content: `Para dúvidas, solicitações ou notificações legais:\n\n**E-mail:** lgpd@bigworks.com.br\n**WhatsApp:** +55 (48) 99838-6116`,
-  },
-];
 ---
 
 <Base
@@ -89,12 +26,75 @@ Na relação com os dados dos clientes finais do contratante, a BigWorks atua co
     </div>
 
     <div style="display:flex; flex-direction:column; gap:2.5rem;">
-      {sections.map((s) => (
+
+      {[
+        {
+          title: "1. Aceitação",
+          body: `Ao acessar o site <strong style="color:#e2e8f0;">bot.bigworks.com.br</strong> e contratar o serviço BOT BigWorks, você concorda com estes Termos. Caso não concorde, não utilize os serviços.`,
+        },
+        {
+          title: "2. Descrição do serviço",
+          body: `O BOT BigWorks é uma plataforma de atendimento automatizado via WhatsApp com inteligência artificial, que possibilita automação de atendimento, consultas operacionais, encaminhamento de setores e integração com sistemas empresariais (ERP, CRM, APIs).<br/><br/>O serviço é fornecido no estado em que se encontra (<em>"as is"</em>), mediante contratação de plano mensal, com setup inicial cobrado separadamente conforme escopo de implantação.`,
+        },
+        {
+          title: "3. Uso aceitável",
+          body: `É <strong style="color:#e2e8f0;">vedado</strong> utilizar o BOT BigWorks para envio de spam, mensagens em massa não solicitadas, violação da Política de Uso Aceitável da Meta/WhatsApp, coleta de dados pessoais de terceiros sem consentimento, atividades ilegais ou fraudulentas, ou engenharia reversa da plataforma.<br/><br/>O descumprimento pode resultar em suspensão imediata, sem reembolso.`,
+        },
+        {
+          title: "4. Uso excessivo e limites de consumo",
+          body: `A BigWorks reserva-se o direito de:<br/><br/>— Limitar ou reduzir o throughput em casos de uso excessivo que impactem outros clientes.<br/>— Suspender temporariamente o acesso em caso de abuso comprovado (ex.: floods de mensagens, scraping).<br/>— Renegociar condições contratuais caso o consumo real supere substancialmente o previsto no plano.<br/><br/>Volumes muito acima do plano contratado podem implicar cobrança adicional ou upgrade obrigatório. O contratante será notificado previamente.`,
+        },
+        {
+          title: "5. Provedores de IA terceiros",
+          body: `A plataforma utiliza serviços de inteligência artificial de terceiros, incluindo <strong style="color:#e2e8f0;">OpenAI</strong> (geração de linguagem, transcrição de áudio, análise de imagem) e outros provedores de OCR e processamento de linguagem.<br/><br/>O contratante reconhece que:<br/><br/>— A disponibilidade e comportamento desses serviços pode variar ou ser alterada pelos respectivos provedores.<br/>— A BigWorks não se responsabiliza por interrupções causadas por indisponibilidade de APIs de terceiros.<br/>— O conteúdo processado por esses provedores é regido por suas respectivas políticas (ex.: OpenAI API Terms).`,
+        },
+        {
+          title: "6. WhatsApp / Meta",
+          body: `O serviço depende da API do WhatsApp Business, operada pela Meta Platforms. O contratante reconhece que:<br/><br/>— O número de WhatsApp pode ser desconectado por ação da Meta, independente da BigWorks.<br/>— A Meta pode alterar, limitar ou descontinuar a API sem aviso prévio.<br/>— O uso da plataforma deve estar em conformidade com as <strong style="color:#e2e8f0;">Políticas de Uso do WhatsApp Business</strong>.<br/><br/>A BigWorks não se responsabiliza por suspensões de número ou restrições impostas pela Meta.`,
+        },
+        {
+          title: "7. BYOK — chave de IA do cliente",
+          body: `Nos planos que permitem uso de chave OpenAI própria (BYOK — Bring Your Own Key):<br/><br/>— O contratante é responsável pela segurança, gestão de quotas e billing da sua chave.<br/>— Indisponibilidade da chave (ex.: quota esgotada, revogação) pode interromper funcionalidades da plataforma.<br/>— A BigWorks não tem acesso ao saldo ou limites da chave do cliente.<br/>— A BigWorks não se responsabiliza por custos gerados pelo uso da chave via plataforma.`,
+        },
+        {
+          title: "8. Responsabilidades do contratante",
+          body: `O contratante é responsável por:<br/><br/>— O conteúdo das respostas e fluxos configurados no sistema.<br/>— Revisar e validar automações antes de colocá-las em produção — a IA pode cometer erros.<br/>— Obter consentimento adequado dos clientes finais para uso de IA no atendimento.<br/>— Cumprir a LGPD em relação aos dados dos seus próprios clientes tratados pelo sistema.<br/>— Manter o número de WhatsApp vinculado ativo e em conformidade com as políticas da Meta.`,
+        },
+        {
+          title: "9. Planos, pagamento e cancelamento",
+          body: `<strong style="color:#e2e8f0;">Cobrança:</strong> mensal, antecipada.<br/><strong style="color:#e2e8f0;">Reajuste:</strong> com aviso prévio de 30 dias.<br/><strong style="color:#e2e8f0;">Cancelamento:</strong> a qualquer momento. Acesso mantido até o fim do período pago. Sem reembolso proporcional.<br/><strong style="color:#e2e8f0;">Setup:</strong> não reembolsável após início da implantação.`,
+        },
+        {
+          title: "10. Retenção e exclusão de dados",
+          body: `Após o cancelamento do serviço:<br/><br/>— Dados operacionais e histórico de atendimento são excluídos em até <strong style="color:#e2e8f0;">30 dias</strong>.<br/>— Logs de sistema e backups são excluídos em até <strong style="color:#e2e8f0;">60 dias</strong>.<br/>— Dados com obrigação legal de retenção são mantidos pelo prazo exigido por lei.<br/><br/>O contratante pode solicitar exportação ou exclusão antecipada pelo canal LGPD.`,
+        },
+        {
+          title: "11. Limitação de responsabilidade",
+          body: `A BigWorks não se responsabiliza por danos indiretos, lucros cessantes, perda de dados ou interrupções causadas por terceiros (Meta, OpenAI, provedores de cloud). A responsabilidade total da BigWorks fica limitada ao valor pago nos últimos 3 meses de serviço.`,
+        },
+        {
+          title: "12. Propriedade intelectual",
+          body: `Todos os direitos sobre a plataforma BOT BigWorks — software, interface, marca e documentação — são de propriedade exclusiva da BigWorks. A contratação não transfere qualquer direito de propriedade intelectual.`,
+        },
+        {
+          title: "13. Alterações nos termos",
+          body: `A BigWorks pode alterar estes Termos com aviso por e-mail ou no painel, com antecedência mínima de <strong style="color:#e2e8f0;">15 dias</strong> para alterações materiais. O uso continuado após a vigência implica aceitação.`,
+        },
+        {
+          title: "14. Legislação e foro",
+          body: `Estes Termos são regidos pela legislação brasileira. Fica eleito o foro da Comarca de <strong style="color:#e2e8f0;">Florianópolis/SC</strong>, com renúncia a qualquer outro.`,
+        },
+        {
+          title: "15. Contato",
+          body: `<strong style="color:#e2e8f0;">E-mail:</strong> lgpd@bigworks.com.br<br/><strong style="color:#e2e8f0;">WhatsApp:</strong> +55 (48) 99838-6116`,
+        },
+      ].map((s) => (
         <div>
           <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">{s.title}</h2>
-          <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; white-space:pre-line;" set:html={s.content.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e2e8f0;">$1</strong>')} />
+          <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;" set:html={s.body} />
         </div>
       ))}
+
     </div>
   </main>
 
