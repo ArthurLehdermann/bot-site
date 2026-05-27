@@ -1,9 +1,11 @@
 ---
 const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20proposta%20do%20BOT%20BigWorks";
+const REGISTER_URL = "https://painel.bot.bigworks.com.br/register";
 
 const plans = [
   {
     name: "Starter",
+    slug: "starter",
     price: "99",
     description: "Para pequenos negócios que querem automatizar atendimento básico.",
     popular: false,
@@ -25,9 +27,11 @@ const plans = [
     ],
     ideal: "Pequenos comércios, estéticas, restaurantes",
     cta: "Começar agora",
+    ctaExternal: false,
   },
   {
     name: "Smart",
+    slug: "growth",
     price: "297",
     description: "Multimodal completo com integração operacional e IA avançada.",
     popular: true,
@@ -47,9 +51,11 @@ const plans = [
     missing: [],
     ideal: "Oficinas, clínicas, empresas com atendimento operacional",
     cta: "Escolher Smart",
+    ctaExternal: false,
   },
   {
     name: "Pro",
+    slug: "pro",
     price: "597",
     priceNote: "a R$997/mês",
     description: "Infraestrutura dedicada, integrações customizadas e IA avançada.",
@@ -69,6 +75,7 @@ const plans = [
     missing: [],
     ideal: "Empresas maiores com operação intensa",
     cta: "Solicitar proposta",
+    ctaExternal: true,
   },
 ];
 
@@ -139,7 +146,10 @@ const setup = {
             <div style="font-size: 0.6875rem; color: #475569; margin-bottom: 0.875rem;">
               <strong style="color: #64748b;">Ideal para:</strong> {plan.ideal}
             </div>
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer"
+            <a
+              href={plan.ctaExternal ? WA_LINK : `${REGISTER_URL}?plan=${plan.slug}`}
+              target={plan.ctaExternal ? "_blank" : "_self"}
+              rel={plan.ctaExternal ? "noopener noreferrer" : undefined}
               class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
               {plan.cta}
             </a>
