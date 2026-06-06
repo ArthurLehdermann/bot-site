@@ -87,10 +87,9 @@ import Base from '../layouts/Base.astro';
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">4. Dados tratados pela plataforma</h2>
             <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">No contexto da plataforma contratada, são tratados dados dos clientes finais da empresa contratante, incluindo:</p>
             <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; color:#94a3b8; font-size:0.9375rem;">
-              <li>— Mensagens de texto enviadas via WhatsApp</li>
-              <li>— Áudios (transcritos e descartados após processamento)</li>
-              <li>— Imagens e fotos (processadas para OCR e identificação de conteúdo)</li>
-              <li>— Arquivos PDF e anexos</li>
+              <li>— Conteúdo das mensagens nos canais conectados (<strong style="color:#94a3b8;">WhatsApp, Telegram, Instagram, Facebook e Messenger</strong>): texto, áudio, imagem, vídeo, documentos e reações</li>
+              <li>— Identificadores de contato do canal (telefone, usuário/ID, nome de exibição) e metadados (data/hora, status, canal de origem)</li>
+              <li>— Áudios transcritos por IA e imagens/vídeos analisados por IA para compreender a solicitação</li>
               <li>— Dados operacionais consultados nos sistemas integrados (OS, clientes, agendamentos)</li>
               <li>— Logs de atendimento e histórico de conversas</li>
             </ul>
@@ -100,11 +99,11 @@ import Base from '../layouts/Base.astro';
           <div>
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">5. Retenção — plataforma</h2>
             <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
-              <li><strong style="color:#e2e8f0;">Mensagens de texto:</strong> retidas conforme configuração da empresa contratante (padrão: 90 dias).</li>
-              <li><strong style="color:#e2e8f0;">Áudios:</strong> transcritos e descartados em até 24h após processamento.</li>
-              <li><strong style="color:#e2e8f0;">Imagens e PDFs:</strong> processados e descartados em até 24h. Não armazenados permanentemente.</li>
-              <li><strong style="color:#e2e8f0;">Logs de OCR:</strong> metadados retidos por até 30 dias para rastreabilidade.</li>
-              <li><strong style="color:#e2e8f0;">Logs operacionais:</strong> retidos por até 90 dias.</li>
+              <li><strong style="color:#e2e8f0;">Mensagens e histórico de conversa:</strong> retidos conforme a configuração da empresa contratante e a relação de atendimento.</li>
+              <li><strong style="color:#e2e8f0;">Mídia (áudio, imagem, vídeo, documentos):</strong> armazenada em object storage com URLs assinadas e acesso restrito, retida enquanto necessária ao atendimento.</li>
+              <li><strong style="color:#e2e8f0;">Payloads brutos dos webhooks:</strong> descartados automaticamente em até 30 dias.</li>
+              <li><strong style="color:#e2e8f0;">Registros de chamadas de IA:</strong> retidos por até 90 dias.</li>
+              <li><strong style="color:#e2e8f0;">Eventos operacionais:</strong> até 30 dias. <strong style="color:#e2e8f0;">Trilha de auditoria:</strong> até 365 dias.</li>
               <li><strong style="color:#e2e8f0;">Após cancelamento:</strong> dados excluídos em até 30 dias, salvo obrigação legal de retenção.</li>
             </ul>
           </div>
@@ -113,9 +112,11 @@ import Base from '../layouts/Base.astro';
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">6. Subprocessadores e transferência internacional</h2>
             <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">A plataforma utiliza os seguintes subprocessadores, que podem processar dados fora do Brasil:</p>
             <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.625rem; color:#94a3b8; font-size:0.9375rem;">
-              <li><strong style="color:#e2e8f0;">Meta (WhatsApp Business API):</strong> roteamento de mensagens. Dados processados nos EUA conforme política da Meta.</li>
+              <li><strong style="color:#e2e8f0;">Meta Platforms:</strong> roteamento de mensagens no WhatsApp, Instagram, Facebook e Messenger. Dados processados nos EUA conforme política da Meta.</li>
+              <li><strong style="color:#e2e8f0;">Telegram:</strong> roteamento de mensagens no canal Telegram.</li>
               <li><strong style="color:#e2e8f0;">OpenAI:</strong> processamento de linguagem natural, transcrição de áudio e análise de imagem. Dados podem ser processados nos EUA. Não usados para treinamento de modelos conforme contrato de API.</li>
-              <li><strong style="color:#e2e8f0;">Vercel:</strong> hospedagem da infraestrutura. Processa dados de acesso conforme sua política.</li>
+              <li><strong style="color:#e2e8f0;">Armazenamento de objetos (cloud):</strong> guarda da mídia do atendimento, com URLs assinadas e acesso restrito.</li>
+              <li><strong style="color:#e2e8f0;">Infraestrutura e hospedagem:</strong> execução da aplicação, banco de dados e do site.</li>
               <li><strong style="color:#e2e8f0;">Outros provedores de cloud/IA:</strong> podem ser adicionados mediante atualização desta política.</li>
             </ul>
             <p style="color:#64748b; font-size:0.875rem; margin-top:0.875rem; line-height:1.65;">Adotamos medidas técnicas e organizacionais razoáveis para essa transferência internacional, compatíveis com a LGPD (art. 33).</p>
