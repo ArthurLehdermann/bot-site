@@ -1,0 +1,80 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#060810"/>
+
+  <!-- Glow orbs -->
+  <circle cx="120" cy="80" r="320" fill="url(#orb1)" filter="url(#blur)"/>
+  <circle cx="1080" cy="160" r="280" fill="url(#orb2)" filter="url(#blur)"/>
+  <circle cx="650" cy="620" r="260" fill="url(#orb3)" filter="url(#blur)"/>
+
+  <!-- Subtle grid -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Logo mark -->
+  <g transform="translate(110,140)">
+    <rect width="84" height="84" rx="18" fill="url(#logoGrad)"/>
+    <g transform="translate(20,20)" fill="none">
+      <path d="M22 2C10.954 2 2 10.954 2 22c0 3.4.83 6.6 2.5 9.4L2 42l11-2.86A20 20 0 1022 2z" fill="#ffffff" fill-opacity="0.92"/>
+      <path d="M13 19h18M13 26h12" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="218" y="208" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="46" letter-spacing="-1" fill="#f1f5f9">BOT <tspan fill="url(#textGrad)">BigWorks</tspan></text>
+
+  <!-- Headline -->
+  <text x="110" y="330" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="58" letter-spacing="-1.5" fill="#f1f5f9" xml:space="preserve">
+    <tspan x="110" dy="0">Atendimento inteligente</tspan>
+    <tspan x="110" dy="70">no <tspan fill="url(#textGrad)">WhatsApp</tspan> com IA</tspan>
+  </text>
+
+  <!-- Subline -->
+  <text x="110" y="510" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="30" fill="#94a3b8">
+    Consultas, agendamentos e ações reais — integrado ao
+  </text>
+  <text x="110" y="552" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="30" fill="#94a3b8">
+    sistema da sua empresa. Também em Telegram e Instagram.
+  </text>
+
+  <!-- Domain badge -->
+  <g transform="translate(110,580)">
+    <circle cx="9" cy="9" r="5" fill="#06b6d4"/>
+    <text x="26" y="15" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="24" fill="#64748b">botbigworks.com.br</text>
+  </g>
+</svg>
