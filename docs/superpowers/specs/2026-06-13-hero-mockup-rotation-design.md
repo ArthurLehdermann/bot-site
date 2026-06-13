@@ -120,21 +120,22 @@ Regra de consistência aplicada a todos os 7: `cardBody` é sempre uma frase cur
 
 ### 2. Renderização — helpers JS pequenos
 
-Em vez de um template literal gigante, criar funções pequenas no `<script>`:
+Em vez de um template literal gigante, criar funções pequenas no `<script>`, uma por tipo de bolha:
 
-- `renderMessage({ side, text, time, extra })` — bolha de texto genérica (cliente ou bot), reaproveitando os estilos já existentes (`#1e3a5f` para cliente, `#1a1f2e` + avatar "B" para bot).
-- `renderCard(label, body, highlight, time)` — o card de "registro encontrado" (borda azul, label uppercase, body, highlight verde).
-- `renderAudio(duration)` — bolha de áudio do cliente (waveform + duração).
+- `renderClientBubble(text, time)` — bolha do cliente (fundo `#1e3a5f`, alinhada à direita, com ícone de "lido").
+- `renderBotBubble(text, time)` — bolha do bot (fundo `#1a1f2e`, avatar "B" com gradiente).
+- `renderStatusCard(label, body, highlight, time)` — o card de "registro encontrado" (borda azul, label uppercase, body, destaque verde).
+- `renderAudioBubble(duration)` — bolha de áudio do cliente (waveform + duração, sem timestamp).
 - `renderScenario(s)` — monta a sequência completa (client → bot1 → card → audio → transcription(bot) → bot2) chamando os helpers acima, retornando o HTML completo da área de chat.
 
-O markup/estilos gerados devem ser equivalentes ao HTML estático atual (linhas 98-160), só parametrizados.
+O markup/estilos gerados devem ser equivalentes ao HTML estático atual (linhas 98-160), só parametrizados. Manter os helpers pequenos facilita ajustes futuros de espaçamento, avatar, timestamp ou tipografia sem precisar tocar em strings gigantes.
 
 ### 3. Render inicial e fallback sem JS
 
 O markup estático do Astro continua sendo o cenário 1 (oficina) — funciona como fallback sem JS e como o HTML do primeiro paint.
 
 No `<script>`, ao carregar:
-- `i` começa em um índice aleatório: `Math.floor(Math.random() * phrases.length)` (mesmo índice usado pelo typewriter).
+- `i` começa em um índice aleatório: `Math.floor(Math.random() * phrases.length)`. Esse mesmo `i` é a única fonte de verdade tanto para `phrases[i]` (o typewriter sempre começa do zero, digitando essa frase) quanto para `scenarios[i]` (o mockup) — os dois nascem alinhados antes do primeiro render, nunca há um frame com frase e mockup de índices diferentes.
 - Se `i !== 0`, o conteúdo do chat é substituído por `renderScenario(scenarios[i])` imediatamente (sem fade, é o estado inicial).
 
 ### 4. Sincronização e crossfade
@@ -154,10 +155,25 @@ A pausa após digitar a frase completa aumenta de `2200ms` para `2600ms`, dando 
 
 ### 6. Layout estável (sem layout shift)
 
-- A área de chat (`.p-4.space-y-3`, hoje `min-height: 380px`) passa a ter altura fixa (`height`) suficiente para o maior cenário, com `overflow: hidden` — evita que o frame do celular "pule" de tamanho entre cenários. Valor exato ajustado visualmente durante a implementação (referência inicial: ~430-460px).
-- `cardLabel` (o título uppercase do card, ex: "AVALIAÇÃO FÍSICA — PERSONAL RAFAEL" vs "OS #4872 — VEÍCULO") recebe `min-height` suficiente para 2 linhas, já que o comprimento varia bastante entre cenários e isso não deve deslocar o resto do card.
+- A área de chat (`.p-4.space-y-3`, hoje `min-height: 380px`) passa a usar `min-height` + `max-height` (em vez de uma altura fixa única), com `overflow: hidden` — evita que o frame do celular "pule" de tamanho entre cenários, mas sem travar um valor "mágico" desktop-only que quebre em mobile/zoom/fontes diferentes. Valores ajustados visualmente durante a implementação (referência inicial: `min-height: 380px; max-height: 460px`), testando especialmente em mobile real (Safari iOS) com a página parcialmente rolada — telas de desktop tendem a mascarar overflow que aparece só em mobile.
+- `cardLabel` (o título uppercase do card, ex: "AVALIAÇÃO FÍSICA — PERSONAL RAFAEL" vs "OS #4872 — VEÍCULO") recebe `min-height` para 2 linhas **e** `-webkit-line-clamp: 2` (`display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden`) — garante que nem o comprimento atual nem um label maior no futuro estourem o card.
+
+### 7. Variação orgânica no texto
+
+Para evitar que os 7 cenários pareçam "templated" demais, nem todo `cardBody`/`bot2` termina em ponto final ou segue exatamente a mesma cadência. Ajustes:
+- Cenário 2 (Cursos): `cardBody` → `Vaga <strong>garantida</strong>` (sem ponto final).
+- Cenário 4 (Imobiliárias): `bot2` → `Solicitação de visita registrada. Corretor responsável notificado` (sem ponto final).
+- Cenário 7 (Escolas): `cardBody` → `Matrícula <strong>confirmada</strong>` (sem ponto final).
+
+Os demais cenários (1, 3, 5, 6) mantêm pontuação completa como especificado na seção 1 — a variação é sutil, não um padrão novo a seguir.
 
 ## Fora de escopo
 
 - Mockup de dashboard/painel operacional, GIF/vídeo do fluxo completo — itens já sinalizados pelo usuário como trabalho futuro, não fazem parte desta mudança.
 - Alterações de preços/planos.
+- Revisão visual geral do Hero (orbs, glow, gradientes) — à medida que o produto amadurece, a estética pode evoluir para um tom mais "software operacional" e menos "startup neon", mas isso é uma discussão de identidade visual separada, não faz parte desta mudança.
+
+## Notas de implementação
+
+- Sem novas dependências, sem estado complexo, sem framework JS — o Hero deve continuar leve.
+- O fallback estático (Astro, cenário 1) continua sendo o HTML real do primeiro paint — bom para SEO/CLS. O JS não deve deixar o Hero "vazio até hidratar".
