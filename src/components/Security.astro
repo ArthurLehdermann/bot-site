@@ -1,0 +1,55 @@
+---
+const items = [
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>`,
+    color: "#6366f1",
+    title: "Políticas de execução configuráveis",
+    text: "A empresa define quais processos podem ser automatizados, supervisionados ou executados apenas com aprovação humana.",
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>`,
+    color: "#10b981",
+    title: "Aprovação humana em ações críticas",
+    text: "A empresa define quais ações exigem confirmação antes da execução, como agendamentos, alterações ou aprovações operacionais.",
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+    color: "#06b6d4",
+    title: "Auditoria e rastreabilidade",
+    text: "Todas as interações, consultas e ações executadas pelo sistema ficam registradas para acompanhamento e auditoria operacional.",
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+    color: "#8b5cf6",
+    title: "Ambiente separado por empresa",
+    text: "Dados, contexto, conversas e integrações operam de forma independente para cada empresa.",
+  },
+];
+---
+
+<section class="py-24 relative">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14">
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Controle operacional</div>
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+        Automação com
+        <span class="gradient-text"> controle operacional.</span>
+      </h2>
+      <p style="color: #94a3b8; font-size: 1rem; line-height: 1.7; max-width: 560px; margin: 0.75rem auto 0;">
+        A automação funciona dentro das regras da empresa, com rastreabilidade, aprovações e supervisão humana.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {items.map((item) => (
+        <div class="glass-card p-5 flex flex-col gap-3 reveal" style="transition: border-color 0.3s, transform 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style={`background: ${item.color}18; color: ${item.color}; border: 1px solid ${item.color}22;`}>
+            <Fragment set:html={item.icon} />
+          </div>
+          <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: #f1f5f9;`}>{item.title}</h3>
+          <p style="color: #64748b; font-size: 0.875rem; line-height: 1.65;">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
