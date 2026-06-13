@@ -1,4 +1,4 @@
-# FAQ rewording + seção "Controle e segurança operacional"
+# FAQ rewording + seção "Automação com controle operacional"
 
 ## Contexto
 
@@ -24,34 +24,36 @@ Demais FAQs não mudam.
 
 Nova seção entre `Comparison` e `Plans` no `index.astro`.
 
-**Título:** "Controle e segurança operacional"
-**Subtítulo:** "A automação funciona dentro das regras da empresa, com rastreabilidade, aprovações e supervisão humana quando necessário."
+**section-tag:** "Controle operacional"
+**Título (h2):** "Automação com <span class=\"gradient-text\">controle operacional.</span>"
+**Subtítulo:** "A automação funciona dentro das regras da empresa, com rastreabilidade, aprovações e supervisão humana."
 
-**4 cards** (grid, mesmo estilo visual de `glass-card` usado em `Comparison.astro`):
+**4 cards**, nesta ordem (grid, mesmo estilo visual de `glass-card` usado em `Comparison.astro`):
 
-1. **Aprovação humana em ações críticas**
-   "A empresa define quais ações exigem confirmação antes da execução, como agendamentos, alterações ou aprovações operacionais."
-
-2. **Auditoria e rastreabilidade**
-   "Todas as interações, consultas e ações executadas pelo sistema ficam registradas para acompanhamento e auditoria operacional."
-
-3. **Ambiente separado por empresa**
-   "Dados, contexto, conversas e integrações operam de forma independente para cada empresa."
-
-4. **Políticas de execução configuráveis**
+1. **Políticas de execução configuráveis** — ícone: workflow/branching (fluxo com decisão)
    "A empresa define quais processos podem ser automatizados, supervisionados ou executados apenas com aprovação humana."
 
-**Ícones (um por card, linguagem operacional, evitar cadeado/cybersecurity):**
-1. Aprovação humana → check/aprovação (ex: balão com check, ou clipboard-check)
-2. Auditoria e rastreabilidade → log/atividade (ex: lista com timeline/activity)
-3. Ambiente separado por empresa → building/layers (separação de ambientes, não "cofre")
-4. Políticas de execução configuráveis → workflow/branching (fluxo com decisão)
+2. **Aprovação humana em ações críticas** — ícone: clipboard-check
+   "A empresa define quais ações exigem confirmação antes da execução, como agendamentos, alterações ou aprovações operacionais."
+
+3. **Auditoria e rastreabilidade** — ícone: activity/history (timeline de atividade)
+   "Todas as interações, consultas e ações executadas pelo sistema ficam registradas para acompanhamento e auditoria operacional."
+
+4. **Ambiente separado por empresa** — ícone: layers (separação lógica, não "cofre")
+   "Dados, contexto, conversas e integrações operam de forma independente para cada empresa."
+
+Evitar cadeado/escudo militarizado/cybersecurity em qualquer ícone.
 
 **Estilo:** `section-tag` + heading com `gradient-text` no padrão das outras seções (ver `Comparison.astro`, `FAQ.astro` para referência de markup).
 
 ### 3. Comparison.astro — remoção
 
 Remove o bloco "Segurança e controle" (linhas ~71-80, o `<div class="mt-10 ...">` com o aviso de segurança), já que a nova seção dedicada o substitui com mais força e evita redundância.
+
+## Notas de implementação
+
+- Manter a seção compacta e visualmente leve, integrada ao design atual — não deve parecer uma seção "enterprise fria" separada do resto do site.
+- Futuro (fora de escopo agora): quando houver screenshots reais de audit timeline / approval queue, considerar substituir os cards por imagens reais — aumenta credibilidade.
 
 ## Fora de escopo
 
