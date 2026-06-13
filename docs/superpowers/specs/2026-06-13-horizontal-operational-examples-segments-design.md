@@ -29,19 +29,19 @@ Isso é feito por:
 | # | Título | Vertical | Cliente envia | Tipo | `color` | Bot executa (steps) |
 |---|--------|----------|---------------|------|---------|----------------------|
 | 1 | Consulta de status | Oficina | "Minha Amarok já ficou pronta?" | `text` | `#6366f1` | 🔍 Localiza o veículo no cadastro / 📋 Consulta a ordem de serviço / ✅ Responde com o status atual |
-| 2 | Reagendamento de consulta | Clínica | "Preciso remarcar minha consulta" | `audio` | `#10b981` | 📅 Consulta a agenda disponível / 🔁 Sugere novos horários / 👩‍⚕️ Encaminha confirmação para a equipe |
+| 2 | Reagendamento de consulta | Clínica | "Preciso remarcar minha consulta" | `audio` | `#10b981` | 📅 Consulta a agenda disponível / 🔁 Sugere novos horários / 👩‍⚕️ Encaminha o reagendamento para confirmação da equipe |
 | 3 | PDF para orçamento | Oficina | "Gostaria de orçamento" (+ PDF anexo) | `pdf` | `#06b6d4` | 📄 Lê o documento enviado / 📝 Resume as informações relevantes / ➡️ Encaminha para análise de orçamento |
 | 4 | Acesso e suporte acadêmico | Escola/curso | "Não consegui acessar as aulas" | `text` | `#8b5cf6` | 🎓 Identifica a matrícula do aluno / 📡 Consulta status de acesso / 📚 Envia orientações ou encaminha para suporte acadêmico |
 | 5 | Status do equipamento | Assistência técnica | "Meu notebook já ficou pronto?" (+ foto do aparelho) | `image` | `#3b82f6` | 🖼️ Identifica o equipamento pela imagem enviada / 📋 Consulta o status do reparo / 📅 Informa previsão de entrega |
-| 6 | Negociação e handoff | Comercial (genérico) | "Vocês fazem desconto para pagamento à vista?" | `text` | `#f59e0b` | 🧠 Identifica pedido de negociação / 💬 Responde dentro do script definido / 👤 Encaminha para atendente humano |
+| 6 | Negociação com encaminhamento | Comercial (genérico) | "Vocês fazem desconto para pagamento à vista?" | `text` | `#f59e0b` | 🧠 Identifica pedido de negociação / 💬 Responde dentro do script definido / 👤 Encaminha para atendente humano |
 
 Cards 1, 3 e 6 são os 3 exemplos atuais (1=#01 atual, 3=#03 atual com o último step reescrito, 6=#02 atual recategorizado como "Comercial" — conteúdo igual ao atual). Cards 2, 4, 5 são novos. `number` de cada card passa a ser "01" a "06" na nova ordem da tabela.
 
 ### 2. Segments.astro — de "lista de mercados" para "segmento → caso operacional"
 
-**section-tag:** "Operações" (era "Segmentos")
+**section-tag:** "Tipos de operação" (era "Segmentos")
 
-**h2:** "Feito para operações com <span class=\"gradient-text\">atendimento recorrente.</span>" (ajuste do atual "Ideal para qualquer empresa com atendimento recorrente.", removendo o "qualquer empresa" genérico)
+**h2:** "Operações com <span class=\"gradient-text\">atendimento recorrente.</span>" (ajuste do atual "Ideal para qualquer empresa com atendimento recorrente.", removendo o "qualquer empresa" genérico e o "Feito para" — direto ao ponto)
 
 **subtítulo (novo):** "Atendimento, consulta, triagem e execução operacional integrados aos sistemas da empresa."
 
@@ -53,8 +53,8 @@ Cards 1, 3 e 6 são os 3 exemplos atuais (1=#01 atual, 3=#03 atual com o último
 | Clínicas e consultórios | `#10b981` | calendar: `<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>` | Confirmações, reagendamentos e encaminhamento operacional integrados à agenda da clínica. |
 | Assistência técnica | `#3b82f6` | monitor: `<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>` | Status de reparo, triagem e comunicação com clientes sem interromper a equipe técnica. |
 | Escolas e cursos | `#8b5cf6` | graduation-cap: `<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>` | Dúvidas recorrentes, status de acesso a aulas/materiais e encaminhamento para suporte acadêmico. |
-| Prestadores de serviço | `#f59e0b` | clipboard-list: `<rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>` | Agendamento, confirmação e acompanhamento de visitas e atendimentos integrados à operação. |
-| Imobiliárias | `#06b6d4` | home: `<path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><polyline points="9 22 9 12 15 12 15 22"/>` | Consulta de imóveis disponíveis, agendamento de visitas e atualização de status de propostas. |
+| Prestadores de serviço | `#f59e0b` | clipboard-list: `<rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>` | Agendamento, confirmação e acompanhamento de serviços sem depender de atendimento manual constante. |
+| Imobiliárias | `#06b6d4` | home: `<path d="M3 9 12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><polyline points="9 22 9 12 15 12 15 22"/>` | Consulta de imóveis, agendamento de visitas e triagem inicial de atendimento via WhatsApp. |
 
 A paleta de cores é a mesma usada em `Examples.astro` (mesma associação por vertical: Oficinas=indigo, Clínicas=verde, Assistência técnica=azul, Escolas=violeta), reforçando identidade visual cruzada entre as duas seções sem criar "identidade por vertical" isolada.
 
@@ -70,3 +70,4 @@ A paleta de cores é a mesma usada em `Examples.astro` (mesma associação por v
 - Manter o padrão visual e classes compartilhadas (`glass-card`, `gradient-text`, `section-tag`, `reveal`) já usados no restante do site.
 - Os ícones SVG do `Segments.astro` seguem o padrão do `Security.astro`: `width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"`, container `w-10 h-10 rounded-lg` com `background: ${color}18`, `border: 1px solid ${color}22`, `color: ${color}`.
 - Os ícones de badge em `Examples.astro` usam tamanho pequeno (14x14), consistente com os ícones de "Cliente envia" já existentes no componente.
+- As cores por card/segmento são usadas como *accent* (ícone + fundo em baixa opacidade via `${color}18`/`${color}22`, como já é o padrão do `Security.astro`), nunca como bloco de cor dominante do card — evita efeito "dashboard SaaS".
