@@ -22,7 +22,7 @@ import Base from '../layouts/Base.astro';
     <div style="margin-bottom:3rem;">
       <div class="section-tag" style="width:fit-content; margin-bottom:1rem;">LGPD — Lei 13.709/2018</div>
       <h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:2rem; color:#f1f5f9; letter-spacing:-0.02em; margin-bottom:0.75rem;">Política de Privacidade</h1>
-      <p style="color:#475569; font-size:0.9rem;">Última atualização: maio de 2026</p>
+      <p style="color:#475569; font-size:0.9rem;">Última atualização: junho de 2026</p>
     </div>
 
     <!-- Scope note -->
@@ -47,8 +47,8 @@ import Base from '../layouts/Base.astro';
             <div style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
               <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem;">
                 <li><strong style="color:#e2e8f0;">Dados de contato voluntários:</strong> nome, empresa e telefone fornecidos ao solicitar demonstração ou proposta via WhatsApp ou formulário.</li>
-                <li><strong style="color:#e2e8f0;">Cookies essenciais:</strong> armazenam sua preferência de consentimento no localStorage do navegador. Não transmitidos a terceiros.</li>
-                <li><strong style="color:#e2e8f0;">Cookies de análise (GA4):</strong> somente com seu consentimento. Coletam páginas visitadas, tempo de sessão e origem do acesso — sem identificação pessoal direta.</li>
+                <li><strong style="color:#e2e8f0;">Preferências locais do navegador:</strong> armazenam sua preferência de consentimento no localStorage do navegador. Não transmitidas a terceiros.</li>
+                <li><strong style="color:#e2e8f0;">Cookies de análise (GA4):</strong> somente com seu consentimento. Coletam páginas visitadas, tempo de sessão e origem do acesso, utilizados para métricas agregadas de navegação e desempenho do site.</li>
               </ul>
             </div>
           </div>
@@ -69,7 +69,7 @@ import Base from '../layouts/Base.astro';
               <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem;">
                 <li><strong style="color:#e2e8f0;">Dados de contato:</strong> mantidos enquanto houver interesse comercial ativo, ou até solicitação de exclusão.</li>
                 <li><strong style="color:#e2e8f0;">Dados GA4:</strong> retidos por 14 meses conforme configuração padrão do Google.</li>
-                <li><strong style="color:#e2e8f0;">Preferência de cookies:</strong> salva localmente no navegador, sem prazo de expiração automático.</li>
+                <li><strong style="color:#e2e8f0;">Preferências locais do navegador:</strong> salvas localmente no navegador, sem prazo de expiração automático.</li>
               </ul>
             </div>
           </div>
@@ -93,7 +93,8 @@ import Base from '../layouts/Base.astro';
               <li>— Dados operacionais consultados nos sistemas integrados (OS, clientes, agendamentos)</li>
               <li>— Logs de atendimento e histórico de conversas</li>
             </ul>
-            <p style="color:#64748b; font-size:0.875rem; margin-top:0.875rem; line-height:1.65;">A empresa contratante é <strong style="color:#94a3b8;">controladora</strong> desses dados. A BigWorks atua como <strong style="color:#94a3b8;">operadora</strong>, nos termos do art. 39 da LGPD.</p>
+            <p style="color:#64748b; font-size:0.875rem; margin-top:0.875rem; line-height:1.65;">A empresa contratante atua como <strong style="color:#94a3b8;">controladora</strong> dos dados tratados em sua operação. A BigWorks atua como <strong style="color:#94a3b8;">operadora</strong>, processando dados conforme as instruções da contratante, nos termos da LGPD.</p>
+            <p style="color:#64748b; font-size:0.875rem; margin-top:0.5rem; line-height:1.65;">A empresa contratante é responsável por garantir que possui base legal adequada para o tratamento dos dados enviados à plataforma.</p>
           </div>
 
           <div>
@@ -101,9 +102,9 @@ import Base from '../layouts/Base.astro';
             <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; color:#94a3b8; font-size:0.9375rem; line-height:1.75;">
               <li><strong style="color:#e2e8f0;">Mensagens e histórico de conversa:</strong> retidos conforme a configuração da empresa contratante e a relação de atendimento.</li>
               <li><strong style="color:#e2e8f0;">Mídia (áudio, imagem, vídeo, documentos):</strong> armazenada em object storage com URLs assinadas e acesso restrito, retida enquanto necessária ao atendimento.</li>
-              <li><strong style="color:#e2e8f0;">Payloads brutos dos webhooks:</strong> descartados automaticamente em até 30 dias.</li>
+              <li><strong style="color:#e2e8f0;">Registros técnicos temporários de integração:</strong> descartados automaticamente em até 30 dias.</li>
               <li><strong style="color:#e2e8f0;">Registros de chamadas de IA:</strong> retidos por até 90 dias.</li>
-              <li><strong style="color:#e2e8f0;">Eventos operacionais:</strong> até 30 dias. <strong style="color:#e2e8f0;">Trilha de auditoria:</strong> até 365 dias.</li>
+              <li><strong style="color:#e2e8f0;">Eventos operacionais e logs de execução:</strong> até 30 dias. <strong style="color:#e2e8f0;">Trilhas de auditoria e rastreabilidade:</strong> até 365 dias.</li>
               <li><strong style="color:#e2e8f0;">Após cancelamento:</strong> dados excluídos em até 30 dias, salvo obrigação legal de retenção.</li>
             </ul>
           </div>
@@ -112,9 +113,9 @@ import Base from '../layouts/Base.astro';
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">6. Subprocessadores e transferência internacional</h2>
             <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75; margin-bottom:0.75rem;">A plataforma utiliza os seguintes subprocessadores, que podem processar dados fora do Brasil:</p>
             <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.625rem; color:#94a3b8; font-size:0.9375rem;">
-              <li><strong style="color:#e2e8f0;">Meta Platforms:</strong> roteamento de mensagens no WhatsApp, Instagram, Facebook e Messenger. Dados processados nos EUA conforme política da Meta.</li>
+              <li><strong style="color:#e2e8f0;">Meta Platforms:</strong> roteamento de mensagens nos canais WhatsApp, Instagram, Facebook e Messenger. O processamento pode ocorrer fora do Brasil, conforme a infraestrutura global da Meta.</li>
               <li><strong style="color:#e2e8f0;">Telegram:</strong> roteamento de mensagens no canal Telegram.</li>
-              <li><strong style="color:#e2e8f0;">OpenAI:</strong> processamento de linguagem natural, transcrição de áudio e análise de imagem. Dados podem ser processados nos EUA. Não usados para treinamento de modelos conforme contrato de API.</li>
+              <li><strong style="color:#e2e8f0;">OpenAI:</strong> processamento de linguagem natural, transcrição de áudio e análise de imagem. Dados podem ser processados nos EUA. Os dados enviados via API não são utilizados para treinamento público de modelos, conforme políticas vigentes do provedor.</li>
               <li><strong style="color:#e2e8f0;">Armazenamento de objetos (cloud):</strong> guarda da mídia do atendimento, com URLs assinadas e acesso restrito.</li>
               <li><strong style="color:#e2e8f0;">Infraestrutura e hospedagem:</strong> execução da aplicação, banco de dados e do site.</li>
               <li><strong style="color:#e2e8f0;">Outros provedores de cloud/IA:</strong> podem ser adicionados mediante atualização desta política.</li>
@@ -137,7 +138,7 @@ import Base from '../layouts/Base.astro';
 
           <div>
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">8. Segurança</h2>
-            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">O site e a plataforma são servidos exclusivamente via HTTPS (TLS). Adotamos medidas técnicas e organizacionais razoáveis para proteção de dados pessoais, incluindo controle de acesso por função e criptografia em repouso para dados sensíveis.</p>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">O site e a plataforma utilizam HTTPS/TLS para proteção do tráfego de dados. Adotamos medidas técnicas e organizacionais razoáveis para proteção de dados pessoais, incluindo controle de acesso, segregação por empresa e mecanismos de proteção compatíveis com o tipo e sensibilidade dos dados tratados.</p>
           </div>
 
           <div>
@@ -148,7 +149,7 @@ import Base from '../layouts/Base.astro';
 
           <div>
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:1.0625rem; color:#e2e8f0; margin-bottom:0.875rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(255,255,255,0.06);">10. Alterações nesta política</h2>
-            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo. O uso continuado do site ou da plataforma após alterações implica aceitação da versão vigente.</p>
+            <p style="color:#94a3b8; font-size:0.9375rem; line-height:1.75;">Esta política pode ser atualizada periodicamente. A data de última atualização será sempre indicada no topo. Recomendamos revisão periódica desta política. Alterações relevantes poderão ser comunicadas pelos canais usuais da plataforma.</p>
           </div>
 
         </div>
