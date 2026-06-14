@@ -749,10 +749,13 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     let html = '';
     let inList = false;
 
+    // O bot escreve no estilo WhatsApp: *negrito* (asterisco simples) e
+    // _itálico_ (underscore). Mantém **negrito** também por resiliência.
     const formatInline = (line: string): string =>
       line
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+        .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<strong>$1</strong>')
+        .replace(/(?<!_)_(?!_)(.+?)(?<!_)_(?!_)/g, '<em>$1</em>');
 
     for (const rawLine of lines) {
       const listMatch = /^[-*]\s+(.*)/.exec(rawLine);
