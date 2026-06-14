@@ -134,6 +134,27 @@ body {
   background-clip: text;
 }
 
+.gradient-text-shimmer {
+  background: linear-gradient(90deg, var(--gradient-1a) 0%, var(--gradient-2a) 50%, var(--gradient-1b) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShimmer 3s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-text-shimmer {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
