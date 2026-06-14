@@ -9,10 +9,9 @@ const WIDGET_PUBLIC_KEY = 'wpk_KullKMhGHWeEeOXgjOgQn4meTCdaxTsQ';
 const WIDGET_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/message`;
 const WIDGET_LEAD_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/lead`;
 
-// Site key do Cloudflare Turnstile — não é segredo (fica visível no HTML).
-// Chave de teste abaixo SEMPRE passa; trocar pela chave real do widget
-// "BOT BigWorks" antes do deploy em produção.
-const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+// Site key do Cloudflare Turnstile (widget "BOT BigWorks") — não é segredo,
+// fica visível no HTML.
+const TURNSTILE_SITE_KEY = '0x4AAAAAADkjYXdKcaeLLV-H';
 
 const WA_LINK = 'https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20BOT%20BigWorks';
 const GREETING = 'Olá! Este chat usa o próprio BOT BigWorks funcionando em produção. Pode perguntar qualquer coisa sobre o produto.';
