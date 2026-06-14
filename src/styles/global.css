@@ -140,7 +140,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShimmer 1.5s ease-in-out infinite alternate;
+  animation: gradientShimmer 1s ease-in-out infinite alternate;
 }
 
 @keyframes gradientShimmer {
