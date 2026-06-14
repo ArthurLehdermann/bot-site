@@ -43,18 +43,18 @@ const steps = [
 
     <div class="relative max-w-3xl mx-auto">
       <!-- Vertical connector line -->
-      <div class="absolute left-6 top-12 bottom-12 w-px hidden md:block" style="background: linear-gradient(to bottom, #6366f1, #3b82f6, #06b6d4, #10b981); opacity: 0.3;"></div>
+      <div class="absolute left-[3.25rem] top-12 bottom-12 w-px hidden md:block" style="background: linear-gradient(to bottom, #6366f1, #3b82f6, #06b6d4, #10b981); opacity: 0.3;"></div>
 
       <div class="flex flex-col gap-8">
         {steps.map((step, i) => (
-          <div class="flex gap-6 items-start reveal">
-            <!-- Step number circle -->
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10" style={`background: ${step.color}18; border: 2px solid ${step.color}40; color: ${step.color};`}>
+          <div class="glass-card flex items-center gap-4 p-5 reveal">
+            <!-- Step icon -->
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background: ${step.color}18; border: 2px solid ${step.color}40; color: ${step.color};`}>
               <Fragment set:html={step.icon} />
             </div>
 
             <!-- Content -->
-            <div class="glass-card flex-1 p-5">
+            <div class="flex-1">
               <div style={`font-size: 0.6875rem; font-weight: 700; color: ${step.color}; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;`}>
                 Passo {step.n}
               </div>

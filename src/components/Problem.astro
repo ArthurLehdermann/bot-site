@@ -47,16 +47,14 @@ const problems = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       {problems.map((p) => (
-        <div class="glass-card p-6 hover:border-white/10 transition-all duration-300 reveal" style={`border-color: ${p.border};`}>
-          <div class="flex items-start gap-4">
+        <div class="glass-card p-6 hover:border-white/10 transition-all duration-300 reveal flex flex-col gap-3" style={`border-color: ${p.border};`}>
+          <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={`background: ${p.bg}; color: ${p.color}; border: 1px solid ${p.border};`}>
               <Fragment set:html={p.icon} />
             </div>
-            <div>
-              <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: ${p.color}; margin-bottom: 0.5rem;`}>{p.title}</h3>
-              <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65;">{p.text}</p>
-            </div>
+            <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: ${p.color};`}>{p.title}</h3>
           </div>
+          <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65;">{p.text}</p>
         </div>
       ))}
     </div>

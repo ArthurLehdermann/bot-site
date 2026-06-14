@@ -86,7 +86,7 @@ const integrations = [
 
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
       {integrations.map((item) => (
-        <div class="glass-card p-4 flex flex-col gap-2.5 reveal" style="transition: transform 0.2s, border-color 0.2s;" onmouseover={`this.style.transform='translateY(-2px)';this.style.borderColor='${item.color}25'`} onmouseout="this.style.transform='';this.style.borderColor=''">
+        <div class="glass-card p-4 flex flex-col justify-center gap-2.5 reveal" style="transition: transform 0.2s, border-color 0.2s;" onmouseover={`this.style.transform='translateY(-2px)';this.style.borderColor='${item.color}25'`} onmouseout="this.style.transform='';this.style.borderColor=''">
           <div class="flex items-center gap-3">
             <div class="flex-shrink-0" style={`color: ${item.color};`}>
               <Fragment set:html={item.icon} />
