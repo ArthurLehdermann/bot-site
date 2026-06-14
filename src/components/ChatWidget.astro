@@ -216,24 +216,8 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       border-radius: 0;
     }
 
-    #cw-header {
-      padding-top: calc(0.875rem + env(safe-area-inset-top));
-    }
-
-    #cw-input-area {
-      padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    }
-
     #cw-root.cw-panel-open #cw-fab {
       display: none;
-    }
-
-    /* 16px evita o zoom automático do iOS Safari ao focar campos */
-    #cw-lead-name,
-    #cw-lead-phone,
-    #cw-lead-email,
-    #cw-input {
-      font-size: 1rem;
     }
   }
 
@@ -497,6 +481,26 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   }
   #cw-send:hover:not(:disabled) {
     opacity: 0.88;
+  }
+
+  /* Estas regras ficam ao final de propósito: têm a mesma especificidade
+     das declarações base acima e precisam vir depois para vencer no cascade. */
+  @media (max-width: 480px) {
+    #cw-header {
+      padding-top: calc(0.875rem + env(safe-area-inset-top));
+    }
+
+    #cw-input-area {
+      padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    }
+
+    /* 16px evita o zoom automático do iOS Safari ao focar campos */
+    #cw-lead-name,
+    #cw-lead-phone,
+    #cw-lead-email,
+    #cw-input {
+      font-size: 1rem;
+    }
   }
 </style>
 
