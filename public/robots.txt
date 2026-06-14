@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://botbigworks.com.br/sitemap-index.xml
+Sitemap: https://bot.bigworks.com.br/sitemap-index.xml
