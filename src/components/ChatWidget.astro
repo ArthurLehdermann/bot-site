@@ -21,13 +21,6 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
 <div id="cw-root" data-endpoint={WIDGET_ENDPOINT} data-lead-endpoint={WIDGET_LEAD_ENDPOINT} data-public-key={WIDGET_PUBLIC_KEY} data-greeting={GREETING} data-error-reply={ERROR_REPLY}>
   <div id="cw-fab-label" aria-hidden="true">Testar agora</div>
-  <script is:inline>
-    // Roda de forma síncrona antes do paint para evitar flash do label
-    // (a chave deve ficar igual a LABEL_DISMISSED_KEY no script principal abaixo).
-    if (sessionStorage.getItem('bw_chat_label_dismissed')) {
-      document.getElementById('cw-fab-label').style.display = 'none';
-    }
-  </script>
   <button id="cw-fab" type="button" aria-label="Abrir chat" aria-expanded="false" aria-controls="cw-panel">
     <div id="cw-fab-icons">
       <svg class="cw-fab-icon cw-fab-icon-active" data-variant="logo" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -532,7 +525,6 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
   const VISITOR_ID_KEY = 'bw_chat_visitor_id';
   const HISTORY_KEY = 'bw_chat_history';
-  const LABEL_DISMISSED_KEY = 'bw_chat_label_dismissed';
   const LEAD_NAME_KEY = 'bw_chat_lead_name';
   const LEAD_PHONE_KEY = 'bw_chat_lead_phone';
   const LEAD_EMAIL_KEY = 'bw_chat_lead_email';
@@ -705,7 +697,6 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   function dismissFabLabel(): void {
     if (!fabLabel) return;
     fabLabel.style.display = 'none';
-    sessionStorage.setItem(LABEL_DISMISSED_KEY, '1');
   }
 
   let fabIconIndex = 0;
