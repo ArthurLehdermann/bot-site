@@ -64,10 +64,12 @@ const features = [
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {features.map((f) => (
         <div class="glass-card p-5 flex flex-col gap-3 reveal" style="transition: border-color 0.3s, transform 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center" style={`background: ${f.color}18; color: ${f.color}; border: 1px solid ${f.color}22;`}>
-            <Fragment set:html={f.icon} />
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={`background: ${f.color}18; color: ${f.color}; border: 1px solid ${f.color}22;`}>
+              <Fragment set:html={f.icon} />
+            </div>
+            <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--color-text-primary);`}>{f.title}</h3>
           </div>
-          <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--color-text-primary);`}>{f.title}</h3>
           <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.65;">{f.text}</p>
         </div>
       ))}
