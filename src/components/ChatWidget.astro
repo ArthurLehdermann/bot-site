@@ -47,9 +47,21 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       </button>
     </div>
 
-    <div id="cw-messages" role="log" aria-live="polite"></div>
+    <div id="cw-lead-gate">
+      <p id="cw-lead-intro">Antes de começar, me conta seu nome e WhatsApp. Assim, se precisar de um humano, a equipe consegue te chamar.</p>
+      <form id="cw-lead-form">
+        <label class="cw-lead-label" for="cw-lead-name">Nome</label>
+        <input id="cw-lead-name" type="text" autocomplete="name" placeholder="Seu nome" required />
+        <label class="cw-lead-label" for="cw-lead-phone">WhatsApp</label>
+        <input id="cw-lead-phone" type="tel" autocomplete="tel" placeholder="(48) 99999-9999" required />
+        <div id="cw-lead-error" role="alert"></div>
+        <button id="cw-lead-submit" type="submit">Começar conversa</button>
+      </form>
+    </div>
 
-    <div id="cw-input-area">
+    <div id="cw-messages" role="log" aria-live="polite" hidden></div>
+
+    <div id="cw-input-area" hidden>
       <textarea id="cw-input" rows="1" placeholder="Escreva sua mensagem..." aria-label="Mensagem"></textarea>
       <button id="cw-send" type="button" aria-label="Enviar mensagem">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -260,6 +272,77 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     outline-offset: 1px;
   }
 
+  #cw-lead-gate {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+  #cw-lead-gate[hidden] {
+    display: none;
+  }
+  #cw-lead-intro {
+    margin: 0 0 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--cw-text-primary);
+  }
+  #cw-lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .cw-lead-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--cw-text-muted);
+  }
+  #cw-lead-name,
+  #cw-lead-phone {
+    border: 1px solid rgba(var(--rgb-surface-on-dark), 0.1);
+    border-radius: 0.75rem;
+    background: var(--cw-bg);
+    color: var(--cw-text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    padding: 0.625rem 0.75rem;
+  }
+  #cw-lead-name::placeholder,
+  #cw-lead-phone::placeholder {
+    color: var(--cw-text-muted);
+  }
+  #cw-lead-name:focus-visible,
+  #cw-lead-phone:focus-visible,
+  #cw-lead-submit:focus-visible {
+    outline: 2px solid var(--cw-accent-a);
+    outline-offset: 1px;
+  }
+  #cw-lead-error {
+    min-height: 1em;
+    font-size: 0.75rem;
+    color: #ef4444;
+  }
+  #cw-lead-submit {
+    margin-top: 0.25rem;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.625rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--cw-accent-a), var(--cw-accent-b));
+    transition: opacity 0.15s ease;
+  }
+  #cw-lead-submit:hover {
+    opacity: 0.88;
+  }
+
   #cw-messages {
     flex: 1;
     overflow-y: auto;
@@ -267,6 +350,12 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
+  }
+  #cw-messages[hidden] {
+    display: none;
+  }
+  #cw-input-area[hidden] {
+    display: none;
   }
 
   .cw-msg {
@@ -384,13 +473,22 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   const panel = document.getElementById('cw-panel') as HTMLElement;
   const closeBtn = document.getElementById('cw-close') as HTMLButtonElement;
   const messagesEl = document.getElementById('cw-messages') as HTMLElement;
+  const inputArea = document.getElementById('cw-input-area') as HTMLElement;
   const input = document.getElementById('cw-input') as HTMLTextAreaElement;
   const sendBtn = document.getElementById('cw-send') as HTMLButtonElement;
+  const leadGate = document.getElementById('cw-lead-gate') as HTMLElement;
+  const leadForm = document.getElementById('cw-lead-form') as HTMLFormElement;
+  const leadNameInput = document.getElementById('cw-lead-name') as HTMLInputElement;
+  const leadPhoneInput = document.getElementById('cw-lead-phone') as HTMLInputElement;
+  const leadSubmit = document.getElementById('cw-lead-submit') as HTMLButtonElement;
+  const leadError = document.getElementById('cw-lead-error') as HTMLElement;
 
   const VISITOR_ID_KEY = 'bw_chat_visitor_id';
   const HISTORY_KEY = 'bw_chat_history';
   const LEAD_TRACKED_KEY = 'bw_chat_lead_tracked';
   const LABEL_DISMISSED_KEY = 'bw_chat_label_dismissed';
+  const LEAD_NAME_KEY = 'bw_chat_lead_name';
+  const LEAD_PHONE_KEY = 'bw_chat_lead_phone';
   const REQUEST_TIMEOUT_MS = 50000;
   const FAB_ICON_ROTATE_MS = 2600;
 
@@ -417,6 +515,53 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   function saveHistory(history: ChatMessage[]): void {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   }
+
+  function getLead(): { name: string; phone: string } | null {
+    const name = localStorage.getItem(LEAD_NAME_KEY);
+    const phone = localStorage.getItem(LEAD_PHONE_KEY);
+    return name && phone ? { name, phone } : null;
+  }
+
+  function showChat(): void {
+    leadGate.hidden = true;
+    messagesEl.hidden = false;
+    inputArea.hidden = false;
+
+    const history = loadHistory();
+    if (history.length === 0) {
+      const greetingMsg: ChatMessage = { role: 'bot', text: greeting };
+      history.push(greetingMsg);
+      saveHistory(history);
+    }
+    renderHistory(history);
+    input.focus();
+  }
+
+  leadForm.addEventListener('submit', (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const name = leadNameInput.value.trim();
+    let phoneDigits = leadPhoneInput.value.replace(/\D/g, '');
+    if (phoneDigits.length > 11 && phoneDigits.startsWith('55')) {
+      phoneDigits = phoneDigits.slice(2);
+    }
+
+    if (name.length < 2) {
+      leadError.textContent = 'Digite seu nome.';
+      leadNameInput.focus();
+      return;
+    }
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      leadError.textContent = 'Digite um WhatsApp válido, com DDD.';
+      leadPhoneInput.focus();
+      return;
+    }
+
+    leadError.textContent = '';
+    localStorage.setItem(LEAD_NAME_KEY, name);
+    localStorage.setItem(LEAD_PHONE_KEY, phoneDigits);
+    showChat();
+  });
 
   function dismissFabLabel(): void {
     if (!fabLabel) return;
@@ -547,6 +692,8 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
         body: JSON.stringify({
           visitor_id: getVisitorId(),
           message: text,
+          visitor_name: localStorage.getItem(LEAD_NAME_KEY) ?? undefined,
+          visitor_phone: localStorage.getItem(LEAD_PHONE_KEY) ?? undefined,
         }),
         signal: controller.signal,
       });
@@ -589,6 +736,9 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   }
 
   function getFocusable(): HTMLElement[] {
+    if (!leadGate.hidden) {
+      return [closeBtn, leadNameInput, leadPhoneInput, leadSubmit];
+    }
     return [closeBtn, input, sendBtn];
   }
 
@@ -600,16 +750,14 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     fabIconClose.style.display = '';
     dismissFabLabel();
 
-    const history = loadHistory();
-    if (history.length === 0) {
-      const greetingMsg: ChatMessage = { role: 'bot', text: greeting };
-      history.push(greetingMsg);
-      saveHistory(history);
+    if (getLead()) {
+      showChat();
+    } else {
+      leadGate.hidden = false;
+      leadNameInput.focus();
     }
-    renderHistory(history);
 
     track('chat_widget_open');
-    input.focus();
   }
 
   function closePanel(): void {
