@@ -89,6 +89,24 @@ const jsonLd = {
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    <script is:inline>
+      (function () {
+        try {
+          var ORDER = ['system', 'light', 'dark'];
+          var pref = localStorage.getItem('theme');
+          if (ORDER.indexOf(pref) === -1) pref = 'system';
+
+          var effective = pref === 'system'
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : pref;
+
+          if (effective === 'dark') document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = effective;
+          document.documentElement.dataset.themePref = pref;
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="color-scheme" content="light dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />

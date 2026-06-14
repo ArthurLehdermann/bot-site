@@ -69,17 +69,17 @@ const integrations = [
 ];
 ---
 
-<section class="py-24 relative overflow-hidden" style="background: linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.5) 50%, transparent 100%);">
+<section class="py-24 relative overflow-hidden" style="background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-surface-tint), 0.5) 50%, transparent 100%);">
   <div class="orb w-80 h-80 opacity-08" style="background: radial-gradient(circle, #6366f1, transparent); top: 10%; left: -10%;"></div>
 
   <div class="max-w-6xl mx-auto px-5">
     <div class="text-center mb-12">
       <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Integrações</div>
-      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: var(--color-text-primary); line-height: 1.15;">
         Não precisa trocar de sistema.
         <span class="gradient-text"> Integra com o que você já usa.</span>
       </h2>
-      <p style="color: #64748b; font-size: 0.9375rem; margin-top: 0.75rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.65;">
+      <p style="color: var(--color-text-muted); font-size: 0.9375rem; margin-top: 0.75rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.65;">
         Atende em WhatsApp, Telegram, Instagram e Messenger — e conecta no que você já usa. ERP, CRM, banco de dados ou workflow: a integração se adapta à operação, não o contrário.
       </p>
     </div>
@@ -91,8 +91,8 @@ const integrations = [
             <Fragment set:html={item.icon} />
           </div>
           <div>
-            <div style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: #e2e8f0;`}>{item.name}</div>
-            <div style="font-size: 0.8125rem; color: #475569; margin-top: 1px;">{item.desc}</div>
+            <div style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--color-text-primary);`}>{item.name}</div>
+            <div style="font-size: 0.8125rem; color: var(--color-text-faint); margin-top: 1px;">{item.desc}</div>
           </div>
         </div>
       ))}
@@ -100,7 +100,7 @@ const integrations = [
 
     <!-- Note -->
     <div class="text-center">
-      <p style="font-size: 0.875rem; color: #334155;">
+      <p style="font-size: 0.875rem; color: var(--color-text-ghost);">
         Não encontrou seu sistema?
         <a href="https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20verificar%20se%20o%20BOT%20BigWorks%20integra%20com%20meu%20sistema" target="_blank" rel="noopener noreferrer" style="color: #6366f1; text-decoration: none; font-weight: 600;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
           Pergunte sobre o seu →

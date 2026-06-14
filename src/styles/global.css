@@ -3,18 +3,100 @@
 @theme {
   --font-sans: "DM Sans", sans-serif;
   --font-display: "Plus Jakarta Sans", sans-serif;
+
+  /* Valores padrão = tema claro. .dark sobrescreve estes mesmos nomes abaixo. */
+  --color-bg-base: #f1f4f9;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-border: rgba(15, 23, 42, 0.07);
+  --color-border-bright: rgba(15, 23, 42, 0.12);
+  --color-accent: #6366f1;
+  --color-accent-blue: #3b82f6;
+  --color-cyan: #0891b2;
+  --color-amber: #d97706;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+}
+
+:root {
+  color-scheme: light;
+
+  /* RGB triplets — convenção: "n, n, n" SEM rgba(), usados em rgba(var(--rgb-X), <alpha original>)
+     preservando o alpha de cada ocorrência. Só para bordas/overlays translúcidos finos —
+     nunca para fundos grandes "elevados" (esses usam tokens sólidos como --color-bg-card). */
+  --rgb-surface-on-dark: 15, 23, 42;   /* era 255,255,255 — bordas/badges */
+  --rgb-surface-tint: 226, 232, 240;   /* era 13,17,23 — gradientes de seção, badges flutuantes */
+  --rgb-chrome: 255, 255, 255;         /* era 6,8,16 — header/footer translúcido */
+
+  /* Elevação no claro depende de sombra, não de transparência */
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+
+  /* Linha de grade decorativa do Hero — alpha próprio por tema */
+  --color-grid-line: rgba(15, 23, 42, 0.06);
+
+  /* Hierarquia adicional de texto — #94a3b8 (valor do escuro) tem só ~2.6:1 no claro, abaixo de AA-large */
+  --color-text-faint: #7c8a9d;
+  --color-text-ghost: #cbd5e1;
+  --color-text-ghost-dot: #e2e8f0;
+
+  /* Acentos / gradientes de texto */
+  --color-tag-text: #7c3aed;
+  --gradient-1a: #7c3aed;
+  --gradient-1b: #2563eb;
+  --gradient-2a: #0891b2;
+  --gradient-2b: #6366f1;
+
+  /* Mockup WhatsApp — cores reais do tema claro do WhatsApp */
+  --color-mockup-frame: #ffffff;
+  --color-mockup-header: #f0f2f5;
+  --color-mockup-chat-bg: #e5ddd5;
+  --color-bubble-client: #d9fdd3;
+  --color-bubble-bot: #ffffff;
+
+  /* Sombra do frame do mockup — elevação sutil no claro (sombra pesada "flutua" sobre fundo claro) */
+  --shadow-mockup: 0 20px 50px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --rgb-surface-on-dark: 255, 255, 255;
+  --rgb-surface-tint: 13, 17, 23;
+  --rgb-chrome: 6, 8, 16;
+
   --color-bg-base: #060810;
   --color-bg-surface: #0D1117;
   --color-bg-card: rgba(255, 255, 255, 0.03);
   --color-border: rgba(255, 255, 255, 0.07);
   --color-border-bright: rgba(255, 255, 255, 0.12);
-  --color-accent: #6366f1;
-  --color-accent-blue: #3b82f6;
   --color-cyan: #06b6d4;
   --color-amber: #f59e0b;
   --color-text-primary: #f1f5f9;
   --color-text-secondary: #94a3b8;
-  --color-text-muted: #475569;
+  --color-text-muted: #64748b;
+
+  --shadow-card: none;
+  --color-grid-line: rgba(255, 255, 255, 0.5);
+
+  --color-text-faint: #475569;
+  --color-text-ghost: #334155;
+  --color-text-ghost-dot: #1e293b;
+
+  --color-tag-text: #a78bfa;
+  --gradient-1a: #a78bfa;
+  --gradient-1b: #60a5fa;
+  --gradient-2a: #06b6d4;
+  --gradient-2b: #6366f1;
+
+  --color-mockup-frame: #111318;
+  --color-mockup-header: #1a1f2e;
+  --color-mockup-chat-bg: #0d1117;
+  --color-bubble-client: #1e3a5f;
+  --color-bubble-bot: #1a1f2e;
+
+  /* Valor original, inalterado — regressão zero */
+  --shadow-mockup: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 *,
@@ -28,24 +110,25 @@ html {
 }
 
 body {
-  background-color: #060810;
-  color: #f1f5f9;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* --- Gradient utilities --- */
 .gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, var(--gradient-1a) 0%, var(--gradient-1b) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-cyan {
-  background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+  background: linear-gradient(135deg, var(--gradient-2a) 0%, var(--gradient-2b) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -78,12 +161,12 @@ body {
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
   background: transparent;
-  color: #f1f5f9;
+  color: var(--color-text-primary);
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 600;
   font-size: 0.9375rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(var(--rgb-surface-on-dark), 0.12);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
   white-space: nowrap;
@@ -96,9 +179,10 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(var(--rgb-surface-on-dark), 0.07);
   border-radius: 1rem;
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -111,7 +195,7 @@ body {
   background: rgba(99, 102, 241, 0.12);
   border: 1px solid rgba(99, 102, 241, 0.25);
   border-radius: 9999px;
-  color: #a78bfa;
+  color: var(--color-tag-text);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -244,11 +328,11 @@ details[open] .faq-body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.875rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(var(--rgb-surface-on-dark), 0.08);
   border-radius: 0.625rem;
   font-size: 0.8125rem;
-  color: #94a3b8;
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 

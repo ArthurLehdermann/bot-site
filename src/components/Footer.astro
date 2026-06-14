@@ -3,7 +3,7 @@ const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20sa
 const year = new Date().getFullYear();
 ---
 
-<footer style="border-top: 1px solid rgba(255,255,255,0.06); background: rgba(6,8,16,0.8);">
+<footer style="border-top: 1px solid rgba(var(--rgb-surface-on-dark), 0.06); background: rgba(var(--rgb-chrome), 0.8);">
   <div class="max-w-6xl mx-auto px-5 py-12">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
 
@@ -15,9 +15,9 @@ const year = new Date().getFullYear();
               <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.06L2 22l4.94-1.38A9.95 9.95 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" fill="white" fill-opacity="0.9"/>
             </svg>
           </div>
-          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: #f1f5f9;">BOT <span class="gradient-text">BigWorks</span></span>
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: var(--color-text-primary);">BOT <span class="gradient-text">BigWorks</span></span>
         </a>
-        <p style="color: #475569; font-size: 0.9rem; line-height: 1.7; max-width: 300px;">
+        <p style="color: var(--color-text-faint); font-size: 0.9rem; line-height: 1.7; max-width: 300px;">
           Atendimento inteligente no WhatsApp, integrado à operação da sua empresa.
         </p>
         <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="btn-primary mt-5" style="padding: 0.625rem 1.25rem; font-size: 0.875rem; display: inline-flex;">
@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
 
       <!-- Produto -->
       <div>
-        <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.8125rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Produto</h4>
+        <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.8125rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Produto</h4>
         <ul class="flex flex-col gap-2.5">
           {[
             { label: "Funcionalidades", href: "#funcionalidades" },
@@ -37,7 +37,7 @@ const year = new Date().getFullYear();
             { label: "Planos", href: "#planos" },
           ].map((link) => (
             <li>
-              <a href={link.href} style="color: #64748b; font-size: 0.9rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#64748b'">{link.label}</a>
+              <a href={link.href} style="color: var(--color-text-muted); font-size: 0.9rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-secondary)'" onmouseout="this.style.color='var(--color-text-muted)'">{link.label}</a>
             </li>
           ))}
         </ul>
@@ -46,16 +46,16 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Bottom bar -->
-    <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-8" style="border-top: 1px solid rgba(255,255,255,0.05);">
-      <p style="color: #334155; font-size: 0.8125rem;">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-8" style="border-top: 1px solid rgba(var(--rgb-surface-on-dark), 0.05);">
+      <p style="color: var(--color-text-ghost); font-size: 0.8125rem;">
         © {year} BOT BigWorks. Todos os direitos reservados.
       </p>
       <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:center;">
-        <a href="/privacidade" style="color:#334155; font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#475569'" onmouseout="this.style.color='#334155'">Privacidade</a>
-        <span style="color:#1e293b;">·</span>
-        <a href="/termos" style="color:#334155; font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#475569'" onmouseout="this.style.color='#334155'">Termos de Uso</a>
-        <span style="color:#1e293b;">·</span>
-        <a href="mailto:lgpd@bigworks.com.br" style="color:#334155; font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#475569'" onmouseout="this.style.color='#334155'">lgpd@bigworks.com.br</a>
+        <a href="/privacidade" style="color: var(--color-text-ghost); font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--color-text-faint)'" onmouseout="this.style.color='var(--color-text-ghost)'">Privacidade</a>
+        <span style="color: var(--color-text-ghost-dot);">·</span>
+        <a href="/termos" style="color: var(--color-text-ghost); font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--color-text-faint)'" onmouseout="this.style.color='var(--color-text-ghost)'">Termos de Uso</a>
+        <span style="color: var(--color-text-ghost-dot);">·</span>
+        <a href="mailto:lgpd@bigworks.com.br" style="color: var(--color-text-ghost); font-size:0.8125rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--color-text-faint)'" onmouseout="this.style.color='var(--color-text-ghost)'">lgpd@bigworks.com.br</a>
       </div>
     </div>
   </div>

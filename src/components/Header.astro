@@ -1,9 +1,11 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
 const WA_LINK = "https://wa.me/5548998386116?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20BOT%20BigWorks";
 const LOGIN_URL = "https://painel.bot.bigworks.com.br/login";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(6,8,16,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06);">
+<header class="fixed top-0 left-0 right-0 z-50" style="background: rgba(var(--rgb-chrome), 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(var(--rgb-surface-on-dark), 0.06);">
   <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2.5 no-underline" aria-label="BOT BigWorks">
@@ -15,24 +17,27 @@ const LOGIN_URL = "https://painel.bot.bigworks.com.br/login";
           <path d="M16 7l1 1 2-2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: #f1f5f9; letter-spacing: -0.01em;">
+      <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: var(--color-text-primary); letter-spacing: -0.01em;">
         BOT <span class="gradient-text">BigWorks</span>
       </span>
     </a>
 
     <!-- Nav -->
     <nav class="hidden md:flex items-center gap-6" aria-label="Menu principal">
-      <a href="#funcionalidades" style="color: #94a3b8; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">Funcionalidades</a>
-      <a href="#como-funciona" style="color: #94a3b8; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">Como funciona</a>
-      <a href="#planos" style="color: #94a3b8; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">Planos</a>
-      <a href="#faq" style="color: #94a3b8; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">FAQ</a>
-      <a href={LOGIN_URL} style="color: #94a3b8; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">Entrar</a>
+      <a href="#funcionalidades" style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Funcionalidades</a>
+      <a href="#como-funciona" style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Como funciona</a>
+      <a href="#planos" style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Planos</a>
+      <a href="#faq" style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">FAQ</a>
+      <a href={LOGIN_URL} style="color: var(--color-text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-text-primary)'" onmouseout="this.style.color='var(--color-text-secondary)'">Entrar</a>
     </nav>
 
-    <!-- CTA -->
-    <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.625rem 1.25rem; font-size: 0.875rem;">
-      Agendar demonstração
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
+    <!-- Toggle de tema + CTA -->
+    <div class="flex items-center gap-3">
+      <ThemeToggle />
+      <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.625rem 1.25rem; font-size: 0.875rem;">
+        Agendar demonstração
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 </header>

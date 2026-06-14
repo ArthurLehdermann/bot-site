@@ -1,0 +1,61 @@
+<button data-theme-toggle aria-label="Alternar tema (sistema/claro/escuro)" class="flex items-center justify-center w-9 h-9 rounded-lg transition-colors" style={`border: 1px solid rgba(var(--rgb-surface-on-dark), 0.12); color: var(--color-text-secondary);`}>
+  <svg data-icon="system" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+  <svg data-icon="light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  <svg data-icon="dark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+</button>
+
+<style>
+  [data-theme-toggle] svg {
+    display: none;
+  }
+  [data-theme-toggle] svg[data-icon="system"] {
+    display: block;
+  }
+  html[data-theme-pref="light"] [data-theme-toggle] svg[data-icon="system"],
+  html[data-theme-pref="dark"] [data-theme-toggle] svg[data-icon="system"] {
+    display: none;
+  }
+  html[data-theme-pref="light"] [data-theme-toggle] svg[data-icon="light"] {
+    display: block;
+  }
+  html[data-theme-pref="dark"] [data-theme-toggle] svg[data-icon="dark"] {
+    display: block;
+  }
+</style>
+
+<script>
+  const ORDER = ['system', 'light', 'dark'];
+  const LABELS: Record<string, string> = { system: 'sistema', light: 'claro', dark: 'escuro' };
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  function effectiveTheme(pref: string) {
+    if (pref === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return pref;
+  }
+
+  function apply(pref: string) {
+    const html = document.documentElement;
+    const eff = effectiveTheme(pref);
+    html.classList.toggle('dark', eff === 'dark');
+    html.style.colorScheme = eff;
+    html.dataset.themePref = pref;
+    if (button) button.title = `Tema: ${LABELS[pref]}`;
+  }
+
+  apply(document.documentElement.dataset.themePref || 'system');
+
+  button?.addEventListener('click', () => {
+    const current = localStorage.getItem('theme') || 'system';
+    const next = ORDER[(ORDER.indexOf(current) + 1) % ORDER.length];
+    localStorage.setItem('theme', next);
+    apply(next);
+  });
+
+  // Se a preferência for "sistema", reage a mudanças do SO em tempo real
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    const current = localStorage.getItem('theme') || 'system';
+    if (current === 'system') apply('system');
+  });
+</script>

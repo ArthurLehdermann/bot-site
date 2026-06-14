@@ -31,11 +31,11 @@ const steps = [
 ];
 ---
 
-<section id="como-funciona" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.4) 50%, transparent 100%);">
+<section id="como-funciona" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-surface-tint), 0.4) 50%, transparent 100%);">
   <div class="max-w-6xl mx-auto px-5">
     <div class="text-center mb-14">
       <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Como funciona</div>
-      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: var(--color-text-primary); line-height: 1.15;">
         Do atendimento à ação,
         <span class="gradient-text"> em segundos.</span>
       </h2>
@@ -58,8 +58,8 @@ const steps = [
               <div style={`font-size: 0.6875rem; font-weight: 700; color: ${step.color}; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;`}>
                 Passo {step.n}
               </div>
-              <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.0625rem; color: #f1f5f9; margin-bottom: 0.5rem;">{step.title}</h3>
-              <p style="color: #64748b; font-size: 0.9375rem; line-height: 1.65;">{step.text}</p>
+              <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.0625rem; color: var(--color-text-primary); margin-bottom: 0.5rem;">{step.title}</h3>
+              <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65;">{step.text}</p>
             </div>
           </div>
         ))}

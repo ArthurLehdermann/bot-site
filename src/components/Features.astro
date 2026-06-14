@@ -51,11 +51,11 @@ const features = [
 ];
 ---
 
-<section id="funcionalidades" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.5) 50%, transparent 100%);">
+<section id="funcionalidades" class="py-24 relative" style="background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-surface-tint), 0.5) 50%, transparent 100%);">
   <div class="max-w-6xl mx-auto px-5">
     <div class="text-center mb-14">
       <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Funcionalidades</div>
-      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: #f1f5f9; line-height: 1.15;">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: var(--color-text-primary); line-height: 1.15;">
         Tudo que sua operação precisa,
         <span class="gradient-text"> integrado ao WhatsApp.</span>
       </h2>
@@ -67,8 +67,8 @@ const features = [
           <div class="w-10 h-10 rounded-lg flex items-center justify-center" style={`background: ${f.color}18; color: ${f.color}; border: 1px solid ${f.color}22;`}>
             <Fragment set:html={f.icon} />
           </div>
-          <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: #f1f5f9;`}>{f.title}</h3>
-          <p style="color: #64748b; font-size: 0.875rem; line-height: 1.65;">{f.text}</p>
+          <h3 style={`font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--color-text-primary);`}>{f.title}</h3>
+          <p style="color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.65;">{f.text}</p>
         </div>
       ))}
     </div>
