@@ -396,6 +396,16 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     white-space: pre-wrap;
     word-break: break-word;
   }
+  .cw-bubble strong {
+    font-weight: 700;
+  }
+  .cw-bubble ul {
+    margin: 0.25rem 0;
+    padding-left: 1.1rem;
+  }
+  .cw-bubble li {
+    white-space: normal;
+  }
   .cw-msg-bot .cw-bubble {
     background: var(--cw-bubble-bot);
     border-top-left-radius: 0.25rem;
@@ -725,6 +735,46 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     if (scopeAttr) el.setAttribute(scopeAttr.name, scopeAttr.value);
   }
 
+  function escapeHtml(text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // Formatação leve de markdown vinda do bot: negrito, itálico e listas com
+  // "-"/"*". Sem dependência externa — cobre só o que o bot costuma usar.
+  function renderMarkdownLite(text: string): string {
+    const lines = escapeHtml(text).split('\n');
+    let html = '';
+    let inList = false;
+
+    const formatInline = (line: string): string =>
+      line
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+
+    for (const rawLine of lines) {
+      const listMatch = /^[-*]\s+(.*)/.exec(rawLine);
+      if (listMatch) {
+        if (!inList) {
+          html += '<ul>';
+          inList = true;
+        }
+        html += `<li>${formatInline(listMatch[1])}</li>`;
+        continue;
+      }
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      html += `${formatInline(rawLine)}\n`;
+    }
+    if (inList) html += '</ul>';
+
+    return html;
+  }
+
   function renderBubble(msg: ChatMessage): void {
     const wrapper = document.createElement('div');
     wrapper.className = `cw-msg cw-msg-${msg.role}`;
@@ -732,7 +782,11 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
     const bubble = document.createElement('div');
     bubble.className = 'cw-bubble';
-    bubble.textContent = msg.text;
+    if (msg.role === 'bot') {
+      bubble.innerHTML = renderMarkdownLite(msg.text);
+    } else {
+      bubble.textContent = msg.text;
+    }
     applyScope(bubble);
     wrapper.appendChild(bubble);
 
