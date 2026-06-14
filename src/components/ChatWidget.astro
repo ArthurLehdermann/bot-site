@@ -25,7 +25,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   <script is:inline>
     // Roda de forma síncrona antes do paint para evitar flash do label
     // (a chave deve ficar igual a LABEL_DISMISSED_KEY no script principal abaixo).
-    if (localStorage.getItem('bw_chat_label_dismissed')) {
+    if (sessionStorage.getItem('bw_chat_label_dismissed')) {
       document.getElementById('cw-fab-label').style.display = 'none';
     }
   </script>
@@ -674,7 +674,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   function dismissFabLabel(): void {
     if (!fabLabel) return;
     fabLabel.style.display = 'none';
-    localStorage.setItem(LABEL_DISMISSED_KEY, '1');
+    sessionStorage.setItem(LABEL_DISMISSED_KEY, '1');
   }
 
   let fabIconIndex = 0;
