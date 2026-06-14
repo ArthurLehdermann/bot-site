@@ -65,12 +65,12 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       <p id="cw-lead-intro">Antes de começar, me conta seu nome e um WhatsApp ou e-mail para contato. Assim, se precisar de um humano, a equipe consegue te chamar.</p>
       <form id="cw-lead-form">
         <label class="cw-lead-label" for="cw-lead-name">Nome</label>
-        <input id="cw-lead-name" type="text" autocomplete="name" placeholder="Seu nome" required />
+        <input id="cw-lead-name" name="name" type="text" autocomplete="name" placeholder="Seu nome" required />
         <label class="cw-lead-label" for="cw-lead-phone">WhatsApp</label>
-        <input id="cw-lead-phone" type="tel" autocomplete="tel" placeholder="(48) 99999-9999" />
+        <input id="cw-lead-phone" name="tel" type="tel" autocomplete="tel" placeholder="(48) 99999-9999" />
         <label class="cw-lead-label" for="cw-lead-email">E-mail</label>
-        <input id="cw-lead-email" type="email" autocomplete="email" placeholder="seu@email.com" />
-        <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="auto"></div>
+        <input id="cw-lead-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" />
+        <div id="cw-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
         <div id="cw-lead-error" role="alert"></div>
         <button id="cw-lead-submit" type="submit">Começar conversa</button>
       </form>
@@ -344,7 +344,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     outline: 2px solid var(--cw-accent-a);
     outline-offset: 1px;
   }
-  .cf-turnstile {
+  #cw-turnstile {
     margin-top: 0.25rem;
   }
   #cw-lead-error {
@@ -571,6 +571,28 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     return !!name && (!!phone || !!email);
   }
 
+  let turnstileWidgetId: string | null = null;
+
+  // Renderização explícita: o widget fica dentro de #cw-panel[hidden] até o
+  // usuário abrir o chat. Se deixarmos o api.js fazer o auto-render (via
+  // classe "cf-turnstile") ele renderiza enquanto o container está
+  // display:none, e o iframe do desafio fica com tamanho zero e não responde
+  // a cliques. Por isso só chamamos turnstile.render() quando o lead-gate
+  // fica visível.
+  function renderTurnstile(attempt = 0): void {
+    if (turnstileWidgetId !== null) return;
+    const turnstile = (window as any).turnstile;
+    const container = document.getElementById('cw-turnstile');
+    if (!turnstile || !container) {
+      if (attempt < 50) setTimeout(() => renderTurnstile(attempt + 1), 100);
+      return;
+    }
+    turnstileWidgetId = turnstile.render(container, {
+      sitekey: container.dataset.sitekey,
+      theme: 'auto',
+    });
+  }
+
   function getTurnstileToken(): string {
     const input = leadForm.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]');
     return input?.value ?? '';
@@ -579,7 +601,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   function resetTurnstile(): void {
     const turnstile = (window as any).turnstile;
     if (turnstile && typeof turnstile.reset === 'function') {
-      turnstile.reset();
+      turnstile.reset(turnstileWidgetId ?? undefined);
     }
   }
 
@@ -596,6 +618,12 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     }
     renderHistory(history);
     input.focus();
+  }
+
+  for (const field of [leadNameInput, leadPhoneInput, leadEmailInput]) {
+    field.addEventListener('input', () => {
+      leadError.textContent = '';
+    });
   }
 
   leadForm.addEventListener('submit', async (e: SubmitEvent) => {
@@ -865,6 +893,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     } else {
       leadGate.hidden = false;
       leadNameInput.focus();
+      renderTurnstile();
     }
 
     track('chat_widget_open');
