@@ -41,27 +41,32 @@ const steps = [
       </h2>
     </div>
 
-    <div class="relative max-w-3xl mx-auto">
-      <!-- Vertical connector line -->
-      <div class="absolute left-[3.25rem] top-12 bottom-12 w-px hidden md:block" style="background: linear-gradient(to bottom, #6366f1, #3b82f6, #06b6d4, #10b981); opacity: 0.3;"></div>
-
-      <div class="flex flex-col gap-8">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col">
         {steps.map((step, i) => (
-          <div class="glass-card flex items-center gap-4 p-5 reveal">
-            <!-- Step icon -->
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background: ${step.color}18; border: 2px solid ${step.color}40; color: ${step.color};`}>
-              <Fragment set:html={step.icon} />
+          <Fragment>
+            <div class="glass-card flex items-center gap-4 p-5 reveal">
+              <!-- Step icon -->
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background: ${step.color}18; border: 2px solid ${step.color}40; color: ${step.color};`}>
+                <Fragment set:html={step.icon} />
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1">
+                <div style={`font-size: 0.6875rem; font-weight: 700; color: ${step.color}; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;`}>
+                  Passo {step.n}
+                </div>
+                <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.0625rem; color: var(--color-text-primary); margin-bottom: 0.5rem;">{step.title}</h3>
+                <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65;">{step.text}</p>
+              </div>
             </div>
 
-            <!-- Content -->
-            <div class="flex-1">
-              <div style={`font-size: 0.6875rem; font-weight: 700; color: ${step.color}; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;`}>
-                Passo {step.n}
+            {i < steps.length - 1 && (
+              <div class="hidden md:flex h-8 items-stretch" style="padding-left: calc(1.25rem + 1.5rem);">
+                <div class="w-px" style={`background: linear-gradient(to bottom, ${step.color}, ${steps[i + 1].color}); opacity: 0.4;`}></div>
               </div>
-              <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.0625rem; color: var(--color-text-primary); margin-bottom: 0.5rem;">{step.title}</h3>
-              <p style="color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.65;">{step.text}</p>
-            </div>
-          </div>
+            )}
+          </Fragment>
         ))}
       </div>
     </div>
