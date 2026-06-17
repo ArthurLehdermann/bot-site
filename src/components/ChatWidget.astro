@@ -842,6 +842,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     // _itálico_ (underscore). Mantém **negrito** também por resiliência.
     const formatInline = (line: string): string =>
       line
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#818cf8;text-decoration:underline;">$1</a>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<strong>$1</strong>')
         .replace(/(?<!_)_(?!_)(.+?)(?<!_)_(?!_)/g, '<em>$1</em>');
