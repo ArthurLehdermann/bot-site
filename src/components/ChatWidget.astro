@@ -8,6 +8,7 @@ const WIDGET_PUBLIC_KEY = 'wpk_45Pg4E7BYLG6x2GQqMtpbUaZcMGdZk2c';
 const WIDGET_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/message`;
 const WIDGET_LEAD_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/lead`;
 const WIDGET_MESSAGES_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/messages`;
+const WIDGET_WS_CONFIG_ENDPOINT = `${WIDGET_API_URL}/api/widget/ws-config`;
 
 // Site key do Cloudflare Turnstile (widget "BOT BigWorks") — não é segredo,
 // fica visível no HTML.
@@ -20,7 +21,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-<div id="cw-root" data-endpoint={WIDGET_ENDPOINT} data-lead-endpoint={WIDGET_LEAD_ENDPOINT} data-messages-endpoint={WIDGET_MESSAGES_ENDPOINT} data-public-key={WIDGET_PUBLIC_KEY} data-greeting={GREETING} data-error-reply={ERROR_REPLY}>
+<div id="cw-root" data-endpoint={WIDGET_ENDPOINT} data-lead-endpoint={WIDGET_LEAD_ENDPOINT} data-messages-endpoint={WIDGET_MESSAGES_ENDPOINT} data-public-key={WIDGET_PUBLIC_KEY} data-greeting={GREETING} data-error-reply={ERROR_REPLY} data-ws-config-endpoint={WIDGET_WS_CONFIG_ENDPOINT} data-tenant-slug={WIDGET_TENANT_SLUG}>
   <div id="cw-fab-label" aria-hidden="true">Testar agora</div>
   <button id="cw-fab" type="button" aria-label="Abrir chat" aria-expanded="false" aria-controls="cw-panel">
     <div id="cw-fab-icons">
@@ -530,6 +531,8 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   const publicKey = root.dataset.publicKey as string;
   const greeting = root.dataset.greeting as string;
   const errorReply = root.dataset.errorReply as string;
+  const wsConfigEndpoint = root.dataset.wsConfigEndpoint as string;
+  const tenantSlug = root.dataset.tenantSlug as string;
 
   const fab = document.getElementById('cw-fab') as HTMLButtonElement;
   const fabBadge = document.getElementById('cw-fab-badge') as HTMLElement;
@@ -565,6 +568,56 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
   type ChatMessage = { role: 'user' | 'bot'; text: string; media_url?: string; media_filename?: string; media_type?: string };
   type PolledMessage = { id: number; role: 'user' | 'bot'; text: string; media_url?: string; media_filename?: string; media_type?: string };
+  type WsConfig = { key: string; host: string; port: number; scheme: string };
+
+  let pusherChannel: { bind: (event: string, fn: (d: unknown) => void) => void; unbind: (event: string, fn: (d: unknown) => void) => void } | null = null;
+
+  async function connectWebSocket(visitorId: string): Promise<void> {
+    try {
+      const res = await fetch(wsConfigEndpoint);
+      if (!res.ok) return;
+      const cfg: WsConfig = await res.json();
+      if (!cfg.key || !cfg.host) return;
+
+      // Carrega pusher-js dinamicamente (evita incluir no bundle principal do site)
+      if (!(window as any).Pusher) {
+        await new Promise<void>((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = 'https://js.pusher.com/8.2.0/pusher.min.js';
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error('pusher load failed'));
+          document.head.appendChild(s);
+        });
+      }
+
+      const Pusher = (window as any).Pusher;
+      const pusher = new Pusher(cfg.key, {
+        wsHost: cfg.host,
+        wsPort: cfg.port,
+        wssPort: cfg.port,
+        forceTLS: cfg.scheme === 'https',
+        enabledTransports: ['ws', 'wss'],
+        disableStats: true,
+        cluster: 'mt1',
+      });
+
+      pusherChannel = pusher.subscribe(`widget.${tenantSlug}.${visitorId}`);
+      pusherChannel!.bind('bot-reply', (data: unknown) => {
+        const d = data as { text: string; message_id?: number };
+        hideTyping();
+        const msg: ChatMessage = { role: 'bot', text: d.text };
+        const history = loadHistory();
+        history.push(msg);
+        saveHistory(history);
+        renderBubble(msg);
+        scrollToBottom();
+        playNotificationSound();
+        if (d.message_id) setLastMessageId(d.message_id);
+      });
+    } catch {
+      // WebSocket opcional — polling continua como fallback
+    }
+  }
 
   function getVisitorId(): string {
     let id = localStorage.getItem(VISITOR_ID_KEY);
@@ -651,6 +704,9 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     }
     renderHistory(history);
     input.focus();
+
+    // Conecta WebSocket ao abrir o chat (entrega replies com cancel window em tempo real)
+    if (!pusherChannel) connectWebSocket(getVisitorId());
   }
 
   for (const field of [leadNameInput, leadPhoneInput, leadEmailInput]) {
@@ -1009,17 +1065,25 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       }
 
       const data = await response.json();
-      hideTyping();
 
-      const botMsg: ChatMessage = { role: 'bot', text: data.reply };
-      const updatedHistory = loadHistory();
-      updatedHistory.push(botMsg);
-      saveHistory(updatedHistory);
-      renderBubble(botMsg);
-      scrollToBottom();
-
-      if (typeof data.message_id === 'number') {
-        setLastMessageId(data.message_id);
+      if (data.status === 'queued') {
+        // Cancel window ativo: resposta chegará via WebSocket (bot-reply).
+        // Mantém typing indicator; polling serve como fallback.
+        if (!pusherChannel) connectWebSocket(getVisitorId());
+      } else if (data.status === 'blocked') {
+        hideTyping();
+        const botMsg: ChatMessage = { role: 'bot', text: data.reply };
+        renderBubble(botMsg);
+        scrollToBottom();
+      } else {
+        hideTyping();
+        const botMsg: ChatMessage = { role: 'bot', text: data.reply };
+        const updatedHistory = loadHistory();
+        updatedHistory.push(botMsg);
+        saveHistory(updatedHistory);
+        renderBubble(botMsg);
+        scrollToBottom();
+        if (typeof data.message_id === 'number') setLastMessageId(data.message_id);
       }
     } catch {
       hideTyping();
