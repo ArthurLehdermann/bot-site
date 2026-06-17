@@ -7,6 +7,7 @@ const WIDGET_TENANT_SLUG = 'bigworks';
 const WIDGET_PUBLIC_KEY = 'wpk_45Pg4E7BYLG6x2GQqMtpbUaZcMGdZk2c';
 const WIDGET_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/message`;
 const WIDGET_LEAD_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/lead`;
+const WIDGET_MESSAGES_ENDPOINT = `${WIDGET_API_URL}/api/widget/${WIDGET_TENANT_SLUG}/messages`;
 
 // Site key do Cloudflare Turnstile (widget "BOT BigWorks") — não é segredo,
 // fica visível no HTML.
@@ -19,7 +20,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-<div id="cw-root" data-endpoint={WIDGET_ENDPOINT} data-lead-endpoint={WIDGET_LEAD_ENDPOINT} data-public-key={WIDGET_PUBLIC_KEY} data-greeting={GREETING} data-error-reply={ERROR_REPLY}>
+<div id="cw-root" data-endpoint={WIDGET_ENDPOINT} data-lead-endpoint={WIDGET_LEAD_ENDPOINT} data-messages-endpoint={WIDGET_MESSAGES_ENDPOINT} data-public-key={WIDGET_PUBLIC_KEY} data-greeting={GREETING} data-error-reply={ERROR_REPLY}>
   <div id="cw-fab-label" aria-hidden="true">Testar agora</div>
   <button id="cw-fab" type="button" aria-label="Abrir chat" aria-expanded="false" aria-controls="cw-panel">
     <div id="cw-fab-icons">
@@ -37,6 +38,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     <svg id="cw-fab-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
       <path d="M18 6 6 18M6 6l12 12"/>
     </svg>
+    <span id="cw-fab-badge" aria-hidden="true" hidden></span>
   </button>
 
   <div id="cw-panel" role="dialog" aria-modal="true" aria-label="Chat com BOT BigWorks" hidden>
@@ -124,6 +126,20 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     0% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4), 0 0 0 0 rgba(99, 102, 241, 0.5); }
     70% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4), 0 0 0 14px rgba(99, 102, 241, 0); }
     100% { box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4), 0 0 0 0 rgba(99, 102, 241, 0); }
+  }
+
+  #cw-fab-badge {
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: #ef4444;
+    border: 2px solid var(--cw-header-bg);
+  }
+  #cw-fab-badge[hidden] {
+    display: none;
   }
 
   #cw-fab-icons {
@@ -510,11 +526,13 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   const root = document.getElementById('cw-root') as HTMLElement;
   const endpoint = root.dataset.endpoint as string;
   const leadEndpoint = root.dataset.leadEndpoint as string;
+  const messagesEndpoint = root.dataset.messagesEndpoint as string;
   const publicKey = root.dataset.publicKey as string;
   const greeting = root.dataset.greeting as string;
   const errorReply = root.dataset.errorReply as string;
 
   const fab = document.getElementById('cw-fab') as HTMLButtonElement;
+  const fabBadge = document.getElementById('cw-fab-badge') as HTMLElement;
   const fabIcons = document.getElementById('cw-fab-icons') as HTMLElement;
   const fabIconClose = document.getElementById('cw-fab-icon-close') as HTMLElement;
   const fabIconVariants = Array.from(document.querySelectorAll('.cw-fab-icon')) as HTMLElement[];
@@ -538,10 +556,15 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   const LEAD_NAME_KEY = 'bw_chat_lead_name';
   const LEAD_PHONE_KEY = 'bw_chat_lead_phone';
   const LEAD_EMAIL_KEY = 'bw_chat_lead_email';
+  const LAST_MESSAGE_ID_KEY = 'bw_chat_last_msg_id';
   const REQUEST_TIMEOUT_MS = 50000;
   const FAB_ICON_ROTATE_MS = 2600;
+  const POLL_INTERVAL_OPEN_MS = 6000;
+  const POLL_INTERVAL_BG_MS = 30000;
+  const TITLE_FLICKER_MS = 1500;
 
   type ChatMessage = { role: 'user' | 'bot'; text: string };
+  type PolledMessage = { id: number; role: 'user' | 'bot'; text: string };
 
   function getVisitorId(): string {
     let id = localStorage.getItem(VISITOR_ID_KEY);
@@ -550,6 +573,15 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       localStorage.setItem(VISITOR_ID_KEY, id);
     }
     return id;
+  }
+
+  function getLastMessageId(): number | null {
+    const raw = localStorage.getItem(LAST_MESSAGE_ID_KEY);
+    return raw ? Number(raw) : null;
+  }
+
+  function setLastMessageId(id: number): void {
+    localStorage.setItem(LAST_MESSAGE_ID_KEY, String(id));
   }
 
   function loadHistory(): ChatMessage[] {
@@ -695,7 +727,8 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       if (phoneFilled) localStorage.setItem(LEAD_PHONE_KEY, phoneDigits);
       if (emailFilled) localStorage.setItem(LEAD_EMAIL_KEY, email);
       track('chat_widget_lead_captured');
-      showChat();
+      enterChat();
+      startBackgroundPolling();
     } catch {
       leadError.textContent = 'Não foi possível confirmar seus dados. Verifique sua conexão e tente novamente.';
       resetTurnstile();
@@ -724,6 +757,62 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       gtag('event', eventName);
     }
   }
+
+  // Mesmo beep do painel (useNotificationSound.ts, preset "ping"): tom
+  // senoidal sintetizado via Web Audio API, sem arquivo de áudio.
+  function playNotificationSound(): void {
+    try {
+      const ctx = new AudioContext();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const vol = ctx.createGain();
+      osc.connect(vol);
+      vol.connect(ctx.destination);
+      osc.frequency.value = 880;
+      osc.type = 'sine';
+      vol.gain.setValueAtTime(0, now);
+      vol.gain.linearRampToValueAtTime(0.3, now + 0.01);
+      vol.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } catch {
+      // AudioContext não disponível
+    }
+  }
+
+  function showBadge(): void {
+    fabBadge.hidden = false;
+  }
+
+  function hideBadge(): void {
+    fabBadge.hidden = true;
+  }
+
+  const ORIGINAL_TITLE = document.title;
+  const NEW_MESSAGE_TITLE = `💬 Nova mensagem — ${ORIGINAL_TITLE}`;
+  let titleFlickerInterval: ReturnType<typeof setInterval> | null = null;
+
+  function startTitleFlicker(): void {
+    if (titleFlickerInterval) return;
+    let showingAlert = false;
+    titleFlickerInterval = setInterval(() => {
+      showingAlert = !showingAlert;
+      document.title = showingAlert ? NEW_MESSAGE_TITLE : ORIGINAL_TITLE;
+    }, TITLE_FLICKER_MS);
+  }
+
+  function stopTitleFlicker(): void {
+    if (titleFlickerInterval) {
+      clearInterval(titleFlickerInterval);
+      titleFlickerInterval = null;
+    }
+    document.title = ORIGINAL_TITLE;
+  }
+
+  window.addEventListener('focus', stopTitleFlicker);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) stopTitleFlicker();
+  });
 
   // Astro's scoped <style> only applies its data-astro-cid-* attribute to
   // elements present in the static template. Bubbles are created at runtime,
@@ -892,6 +981,10 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       saveHistory(updatedHistory);
       renderBubble(botMsg);
       scrollToBottom();
+
+      if (typeof data.message_id === 'number') {
+        setLastMessageId(data.message_id);
+      }
     } catch {
       hideTyping();
 
@@ -909,6 +1002,101 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   function autoGrow(): void {
     input.style.height = 'auto';
     input.style.height = `${Math.min(input.scrollHeight, 104)}px`;
+  }
+
+  // Busca mensagens novas (respostas do bot/operador) — entrega de replies de
+  // handoff que o canal Web (no-op) não consegue empurrar para o navegador.
+  // `silent: true` só atualiza o cursor (last_message_id), sem tocar
+  // histórico/badge/som — usado no bootstrap de sessões pré-existentes (item 8).
+  async function pollMessages({ render, silent = false }: { render: boolean; silent?: boolean }): Promise<void> {
+    const afterId = getLastMessageId();
+    const params = new URLSearchParams({ visitor_id: getVisitorId() });
+    if (afterId !== null) params.set('after_id', String(afterId));
+
+    let data: { messages: PolledMessage[]; last_message_id: number };
+    try {
+      const response = await fetch(`${messagesEndpoint}?${params.toString()}`, {
+        headers: { 'X-Widget-Key': publicKey },
+      });
+      if (!response.ok) return;
+      data = await response.json();
+    } catch {
+      return;
+    }
+
+    if (silent) {
+      setLastMessageId(data.last_message_id);
+      return;
+    }
+
+    if (data.messages.length === 0) {
+      setLastMessageId(data.last_message_id);
+      return;
+    }
+
+    const history = loadHistory();
+    let hasNewBotMessage = false;
+    for (const msg of data.messages) {
+      const chatMsg: ChatMessage = { role: msg.role, text: msg.text };
+      history.push(chatMsg);
+      if (render) renderBubble(chatMsg);
+      if (msg.role === 'bot') hasNewBotMessage = true;
+    }
+    saveHistory(history);
+    setLastMessageId(data.last_message_id);
+
+    if (render) {
+      scrollToBottom();
+    }
+
+    if (hasNewBotMessage) {
+      playNotificationSound();
+      if (!render) {
+        showBadge();
+        if (document.hidden || !document.hasFocus()) {
+          startTitleFlicker();
+        }
+      }
+    }
+  }
+
+  let openPollInterval: ReturnType<typeof setInterval> | null = null;
+  let bgPollInterval: ReturnType<typeof setInterval> | null = null;
+
+  function startOpenPolling(): void {
+    if (openPollInterval) return;
+    openPollInterval = setInterval(() => pollMessages({ render: true }), POLL_INTERVAL_OPEN_MS);
+  }
+
+  function stopOpenPolling(): void {
+    if (openPollInterval) {
+      clearInterval(openPollInterval);
+      openPollInterval = null;
+    }
+  }
+
+  function startBackgroundPolling(): void {
+    if (bgPollInterval) return;
+    bgPollInterval = setInterval(() => {
+      if (!panel.hidden || document.hidden) return;
+      pollMessages({ render: false });
+    }, POLL_INTERVAL_BG_MS);
+  }
+
+  // Entra no chat (lead já capturado): renderiza histórico local, faz o
+  // bootstrap do cursor para sessões pré-existentes (item 8), busca mensagens
+  // novas imediatamente e só então inicia o polling periódico (item 5).
+  async function enterChat(): Promise<void> {
+    showChat();
+
+    if (getLastMessageId() === null && loadHistory().length > 0) {
+      await pollMessages({ render: false, silent: true });
+    }
+
+    hideBadge();
+    stopTitleFlicker();
+    await pollMessages({ render: true });
+    startOpenPolling();
   }
 
   function getFocusable(): HTMLElement[] {
@@ -936,7 +1124,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
     }
 
     if (getLead()) {
-      showChat();
+      enterChat();
     } else {
       leadGate.hidden = false;
       leadNameInput.focus();
@@ -951,6 +1139,7 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
       pendingController.abort();
       pendingController = null;
     }
+    stopOpenPolling();
     panel.hidden = true;
     fab.setAttribute('aria-expanded', 'false');
     fab.setAttribute('aria-label', 'Abrir chat');
@@ -1002,4 +1191,10 @@ const ERROR_REPLY = `Não consegui responder agora. Tenta de novo ou fala com a 
   });
 
   sendBtn.addEventListener('click', sendMessage);
+
+  // Sessão com lead já capturado: polling em background liga assim que a
+  // página carrega, mesmo com o painel fechado (badge/som/título no FAB/aba).
+  if (getLead()) {
+    startBackgroundPolling();
+  }
 </script>
