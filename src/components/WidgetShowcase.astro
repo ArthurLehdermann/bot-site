@@ -1,34 +1,28 @@
 ---
-const snippet = `<script
-  src="https://painel.bot.bigworks.com.br/widget.js"
-  data-key="SUA_PUBLIC_KEY"
-  async
-></script>`;
-
 const points = [
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
     color: "#6366f1",
-    title: "Uma tag, qualquer site",
-    text: "Cole o script antes do </body>. Sem iframe, sem build, sem backend no seu site.",
+    title: "Pronto em minutos",
+    text: "Sua equipe ativa e o chat aparece no seu site. Você não mexe em nada técnico.",
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
     color: "#14b8a6",
-    title: "Resolve sozinho",
-    text: "A public key identifica a empresa. O widget carrega a configuração certa sem você tocar em código.",
+    title: "O mesmo atendimento",
+    text: "É o bot do WhatsApp, agora também pra quem chega pelo seu site. Uma operação só.",
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
     color: "#f59e0b",
-    title: "Tempo real",
-    text: "As respostas chegam por WebSocket, com fallback automático se a conexão cair.",
+    title: "Resposta na hora",
+    text: "O visitante manda a mensagem e já é respondido, sem recarregar a página nem esperar.",
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
     color: "#10b981",
-    title: "Anti-spam embutido",
-    text: "Cloudflare Turnstile e allowlist de domínios (CORS) bloqueiam abuso e uso fora do seu site.",
+    title: "Protegido contra spam",
+    text: "Só funciona no seu site e bloqueia robôs sozinho. Sem mensagem falsa enchendo seu painel.",
   },
 ];
 ---
@@ -38,29 +32,42 @@ const points = [
 
   <div class="max-w-6xl mx-auto px-5">
     <div class="text-center mb-12">
-      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Widget no seu site</div>
+      <div class="section-tag mb-5 mx-auto" style="width: fit-content;">Atendimento no seu site</div>
       <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.5rem, 2.5vw, 2.125rem); letter-spacing: -0.03em; color: var(--color-text-primary); line-height: 1.15;">
-        Seu atendimento no seu site.
-        <span class="gradient-text"> Uma tag.</span>
+        Quem entra no seu site
+        <span class="gradient-text"> já é atendido.</span>
       </h2>
       <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.7; max-width: 560px; margin: 0.75rem auto 0;">
-        O mesmo bot do WhatsApp, agora como chat no seu site. Copie uma linha do painel e cole — pronto.
+        O mesmo atendimento do WhatsApp, agora como chat no seu site. Sua equipe ativa — você não precisa de programador.
       </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-      <!-- Snippet -->
-      <div class="glass-card p-5 reveal">
-        <div class="flex items-center gap-2 mb-3">
+      <!-- Browser mockup -->
+      <div class="glass-card p-4 reveal">
+        <div class="flex items-center gap-2 mb-4 pb-3" style="border-bottom: 1px solid var(--color-border);">
           <span class="w-3 h-3 rounded-full" style="background:#f43f5e;"></span>
           <span class="w-3 h-3 rounded-full" style="background:#f59e0b;"></span>
           <span class="w-3 h-3 rounded-full" style="background:#10b981;"></span>
-          <span style="font-size: 0.75rem; color: var(--color-text-faint); margin-left: 0.5rem; font-family: monospace;">index.html</span>
+          <span class="ml-2 px-3 py-1 rounded-md" style="font-size: 0.75rem; color: var(--color-text-faint); background: var(--color-surface); flex: 1;">seusite.com.br</span>
         </div>
-        <pre style="margin:0; padding:0.5rem 0; font-family: monospace; font-size: 0.8125rem; line-height: 1.7; color: var(--color-text-primary); white-space: pre-wrap; word-break: break-all;">{snippet}</pre>
-        <p style="font-size: 0.75rem; color: var(--color-text-faint); margin-top: 0.75rem; line-height: 1.6;">
-          A <span style="color: var(--color-text-muted);">public key</span> é gerada no painel ao criar o canal Web.
-        </p>
+
+        <div class="relative" style="min-height: 190px;">
+          <!-- chat panel -->
+          <div class="absolute bottom-14 right-2 w-64 rounded-xl overflow-hidden" style="background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: 0 12px 32px rgba(0,0,0,0.25);">
+            <div class="px-3 py-2.5" style="background: linear-gradient(135deg, #6366f1, #14b8a6);">
+              <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.8125rem; color: #fff;">Atendimento</span>
+            </div>
+            <div class="p-3 flex flex-col gap-2">
+              <div class="self-end px-3 py-2 rounded-2xl rounded-br-sm" style="background:#6366f1; color:#fff; font-size: 0.75rem; max-width: 80%;">Vocês entregam hoje?</div>
+              <div class="self-start px-3 py-2 rounded-2xl rounded-bl-sm" style="background: var(--color-bg-card); color: var(--color-text-secondary); font-size: 0.75rem; max-width: 85%; border: 1px solid var(--color-border);">Sim! No seu CEP, a entrega sai ainda hoje. Quer que eu já registre o pedido?</div>
+            </div>
+          </div>
+          <!-- chat button -->
+          <div class="absolute bottom-2 right-2 w-12 h-12 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #6366f1, #14b8a6); box-shadow: 0 8px 20px rgba(99,102,241,0.4);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Points -->
